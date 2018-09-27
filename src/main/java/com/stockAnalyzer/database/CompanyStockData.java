@@ -11,10 +11,10 @@ import java.math.BigDecimal;
 
 public class CompanyStockData {
 
-    final public Quote quote;
-    final public Company company;
-    final public KeyStats keystats;
-    final public Financial financials;
+    private Quote quote;
+    private Company company;
+    private KeyStats keystats;
+    private Financial financials;
     public final BigDecimal PeRatio;
     public final String Sector;
     public final BigDecimal PriceToBook;
@@ -32,16 +32,44 @@ public class CompanyStockData {
     public final BigDecimal cashFlow;
 
 
-    private int id;
+    public final int id;
+    public final String symbol;
 
-    public int getId() {
-        return id;
-    }
 
-    private String symbol;
-
-    public String getSymbol() {
-        return symbol;
+    public CompanyStockData(BigDecimal peRatio,
+                            String sector,
+                            BigDecimal priceToBook,
+                            BigDecimal priceToSales,
+                            BigDecimal dividendYield,
+                            BigDecimal returnOnEquity,
+                            BigDecimal returnOnAssets,
+                            BigDecimal profitMargin,
+                            BigDecimal ttmEPS,
+                            BigDecimal debt,
+                            BigDecimal currentAssets,
+                            BigDecimal currentDebt,
+                            BigDecimal totalDebt,
+                            BigDecimal shareHolderEquity,
+                            BigDecimal cashFlow,
+                            int id,
+                            String symbol) {
+        this.PeRatio = peRatio;
+        this.Sector = sector;
+        this.PriceToBook = priceToBook;
+        this.PriceToSales = priceToSales;
+        this.DividendYield = dividendYield;
+        this.ReturnOnEquity = returnOnEquity;
+        this.ReturnOnAssets = returnOnAssets;
+        this.ProfitMargin = profitMargin;
+        this.TtmEPS = ttmEPS;
+        this.Debt = debt;
+        this.currentAssets = currentAssets;
+        this.currentDebt = currentDebt;
+        this.totalDebt = totalDebt;
+        this.shareHolderEquity = shareHolderEquity;
+        this.cashFlow = cashFlow;
+        this.id = id;
+        this.symbol = symbol;
     }
 
     public CompanyStockData(String symbol) {
@@ -90,6 +118,7 @@ public class CompanyStockData {
 
 
     }
+
 
     @Override
     public String toString() {
