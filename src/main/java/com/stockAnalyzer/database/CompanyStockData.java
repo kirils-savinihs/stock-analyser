@@ -11,25 +11,25 @@ import java.math.BigDecimal;
 
 public class CompanyStockData {
 
-    final private Quote quote;
-    final private Company company;
-    final private KeyStats keystats;
-    final private Financial financials;
-    private final BigDecimal PeRatio;
-    private final String Sector;
-    private final BigDecimal PriceToBook;
-    private final BigDecimal PriceToSales;
-    private final BigDecimal DividendYield;
-    private final BigDecimal ReturnOnEquity;
-    private final BigDecimal ReturnOnAssets;
-    private final BigDecimal ProfitMargin;
-    private final BigDecimal TtmEPS;
-    private final BigDecimal Debt;
-    private final BigDecimal currentAssets;
-    private final BigDecimal currentDebt;
-    private final BigDecimal totalDebt;
-    private final BigDecimal shareHolderEquity;
-    private final BigDecimal cashFlow;
+    final public Quote quote;
+    final public Company company;
+    final public KeyStats keystats;
+    final public Financial financials;
+    public final BigDecimal PeRatio;
+    public final String Sector;
+    public final BigDecimal PriceToBook;
+    public final BigDecimal PriceToSales;
+    public final BigDecimal DividendYield;
+    public final BigDecimal ReturnOnEquity;
+    public final BigDecimal ReturnOnAssets;
+    public final BigDecimal ProfitMargin;
+    public final BigDecimal TtmEPS;
+    public final BigDecimal Debt;
+    public final BigDecimal currentAssets;
+    public final BigDecimal currentDebt;
+    public final BigDecimal totalDebt;
+    public final BigDecimal shareHolderEquity;
+    public final BigDecimal cashFlow;
 
 
     private int id;
@@ -41,8 +41,11 @@ public class CompanyStockData {
     private String symbol;
 
     public String getSymbol() {
-
         return symbol;
+    }
+
+    public CompanyStockData(String symbol) {
+        this(0, symbol);
     }
 
 
@@ -79,8 +82,6 @@ public class CompanyStockData {
         this.ProfitMargin = keystats.getProfitMargin();
         this.TtmEPS = keystats.getTtmEPS();
         this.Debt = keystats.getDebt();
-
-
         this.currentAssets = financials.getCurrentAssets();
         this.currentDebt = financials.getCurrentDebt();
         this.totalDebt = financials.getTotalDebt();
