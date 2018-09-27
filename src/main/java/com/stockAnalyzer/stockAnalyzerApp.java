@@ -1,6 +1,7 @@
 package com.stockAnalyzer;
 
 
+import com.stockAnalyzer.database.CompanyStockData;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import pl.zankowski.iextrading4j.api.stocks.Quote;
@@ -19,14 +20,9 @@ public class stockAnalyzerApp {
 
     public static void main(String[] args) {
 
-        final IEXTradingClient iexTradingClient = IEXTradingClient.create();
-        final Quote quote = iexTradingClient.executeRequest(new QuoteRequestBuilder()
-                .withSymbol("AAPL")
-                .build());
-
-
-        System.out.println(quote);
-
+        //next lines are for testing purposes
+        CompanyStockData csd = new CompanyStockData(1, "INTC");
+        System.out.println(csd);
 
     }
 
