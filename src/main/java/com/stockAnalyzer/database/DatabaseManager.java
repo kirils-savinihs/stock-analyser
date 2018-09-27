@@ -1,6 +1,7 @@
 package com.stockAnalyzer.database;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class DatabaseManager {
 
@@ -49,7 +50,7 @@ public class DatabaseManager {
                     "`cashFlow`)\n" +
                     "VALUES\n" +
                     "(null,\n\'" +
-                    data.getSymbol() + "\',\n" +
+                    data.symbol + "\',\n" +
                     data.PeRatio + ",\n\'" +
                     data.Sector + "\',\n" +
                     data.PriceToBook + ",\n" +
@@ -166,6 +167,43 @@ public class DatabaseManager {
         return companyStockData;
     }
 
+    public ArrayList<CompanyStockData> getAll() {
+        ArrayList<CompanyStockData> data = new ArrayList<CompanyStockData>();
+        try {
+            java.sql.Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("select * from stock_database.stocks");
+
+
+            while (rs.next()) {
+                data.add(new CompanyStockData(
+                        rs.getBigDecimal(3),
+                        rs.getString(4),
+                        rs.getBigDecimal(5),
+                        rs.getBigDecimal(6),
+                        rs.getBigDecimal(7),
+                        rs.getBigDecimal(8),
+                        rs.getBigDecimal(9),
+                        rs.getBigDecimal(10),
+                        rs.getBigDecimal(11),
+                        rs.getBigDecimal(12),
+                        rs.getBigDecimal(13),
+                        rs.getBigDecimal(14),
+                        rs.getBigDecimal(15),
+                        rs.getBigDecimal(16),
+                        rs.getBigDecimal(17),
+                        rs.getInt(1),
+                        rs.getString(2)
+                ));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return data;
+
+
+    }
+
 
 
     public static void main(String[] args) {
@@ -174,8 +212,11 @@ public class DatabaseManager {
         DatabaseManager db = new DatabaseManager();
 //        CompanyStockData st2 = db.findBySymbol("INTC");
 //        System.out.println(st2.getId()+st2.getSymbol());
-        db.resetDatabase();
-        db.add("INTC");
+//        db.resetDatabase();
+//        db.add("INTC");
+        db.add("FB");
+        System.out.println(db.getAll());
+
         db.closeConnection();
     }
 
