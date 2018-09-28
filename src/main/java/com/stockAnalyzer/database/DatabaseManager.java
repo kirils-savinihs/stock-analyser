@@ -9,7 +9,7 @@ public class DatabaseManager {
 
     public DatabaseManager() {
         try {
-            con = DriverManager.getConnection("jdbc:mysql://localhost/?autoReconnect=true&useSSL=false", "root", "");
+            con = DriverManager.getConnection("jdbc:mysql://localhost/?autoReconnect=true&useSSL=false", "root", "00000000");
             con.setAutoCommit(false);
         } catch (SQLException e) {
 
@@ -47,7 +47,11 @@ public class DatabaseManager {
                     "`currentDebt`,\n" +
                     "`totalDebt`,\n" +
                     "`shareHolderEquity`,\n" +
-                    "`cashFlow`)\n" +
+                    "`cashFlow`,\n" +
+                    "`Liquidity`,\n" +
+                    "`LatestPrice`,\n" +
+                    "`DebtToEquity`,\n" +
+                    "`PriceToCashFlow`)\n" +
                     "VALUES\n" +
                     "(null,\n\'" +
                     data.symbol + "\',\n" +
@@ -65,7 +69,11 @@ public class DatabaseManager {
                     data.currentDebt + ",\n" +
                     data.totalDebt + ",\n" +
                     data.shareHolderEquity + ",\n" +
-                    data.cashFlow + ");\n";
+                    data.cashFlow + ",\n" +
+                    data.Liquidity + ",\n" +
+                    data.LatestPrice + ",\n" +
+                    data.DebtToEquity + ",\n" +
+                    data.PriceToCashFlow + ");\n";
 
             st.executeUpdate(sql);
         } catch (SQLException e) {
@@ -103,6 +111,10 @@ public class DatabaseManager {
                 "totalDebt bigint,\n" +
                 "shareHolderEquity bigint,\n" +
                 "cashFlow bigint,\n" +
+                "Liquidity double,\n" +
+                "LatestPrice double,\n" +
+                "DebtToEquity double,\n" +
+                "PriceToCashFlow double,\n" +
                 "primary key (id)\n" +
                 ");";
         try {
@@ -191,6 +203,10 @@ public class DatabaseManager {
                         rs.getBigDecimal(15),
                         rs.getBigDecimal(16),
                         rs.getBigDecimal(17),
+                        rs.getBigDecimal(18),
+                        rs.getBigDecimal(19),
+                        rs.getBigDecimal(20),
+                        rs.getBigDecimal(21),
                         rs.getInt(1),
                         rs.getString(2)
                 ));
@@ -214,9 +230,12 @@ public class DatabaseManager {
 //        System.out.println(st2.getId()+st2.getSymbol());
 //        db.resetDatabase();
 //        db.add("INTC");
-        db.add("FB");
-        System.out.println(db.getAll());
+//        db.add("FB");
+//        System.out.println(db.getAll());
 
+        db.resetDatabase();
+        db.add("INTC");
+        System.out.println(db.getAll());
         db.closeConnection();
     }
 

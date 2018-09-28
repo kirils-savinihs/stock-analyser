@@ -30,6 +30,10 @@ public class CompanyStockData {
     public final BigDecimal totalDebt;
     public final BigDecimal shareHolderEquity;
     public final BigDecimal cashFlow;
+    public final BigDecimal PriceToCashFlow;
+    public final BigDecimal DebtToEquity;
+    public final BigDecimal Liquidity;
+    public final BigDecimal LatestPrice;
 
 
     public final int id;
@@ -51,6 +55,10 @@ public class CompanyStockData {
                             BigDecimal totalDebt,
                             BigDecimal shareHolderEquity,
                             BigDecimal cashFlow,
+                            BigDecimal Liquidity,
+                            BigDecimal LatestPrice,
+                            BigDecimal DebtToEquity,
+                            BigDecimal PriceToCashFlow,
                             int id,
                             String symbol) {
         this.PeRatio = peRatio;
@@ -70,6 +78,10 @@ public class CompanyStockData {
         this.cashFlow = cashFlow;
         this.id = id;
         this.symbol = symbol;
+        this.DebtToEquity = DebtToEquity;
+        this.LatestPrice = LatestPrice;
+        this.PriceToCashFlow = PriceToCashFlow;
+        this.Liquidity = Liquidity;
     }
 
     public CompanyStockData(String symbol) {
@@ -115,16 +127,20 @@ public class CompanyStockData {
         this.totalDebt = financials.getTotalDebt();
         this.shareHolderEquity = financials.getShareholderEquity();
         this.cashFlow = financials.getCashFlow();
+        this.DebtToEquity = totalDebt.divide(shareHolderEquity, 4, BigDecimal.ROUND_HALF_UP);
+        this.LatestPrice = quote.getLatestPrice();
+        this.PriceToCashFlow = this.LatestPrice.divide(this.cashFlow.divide(keystats.getSharesOutstanding(), 2, BigDecimal.ROUND_HALF_UP), 2, BigDecimal.ROUND_HALF_UP);
+        this.Liquidity = currentAssets.divide(currentDebt, 2, BigDecimal.ROUND_HALF_UP);
+
 
 
     }
 
-
     @Override
     public String toString() {
         return "CompanyStockData{" +
-                "\nPeRatio=" + PeRatio +
-                "\n Sector='" + Sector + '\'' +
+                ". PeRatio=" + PeRatio +
+                "\n Sector=" + Sector +
                 "\n PriceToBook=" + PriceToBook +
                 "\n PriceToSales=" + PriceToSales +
                 "\n DividendYield=" + DividendYield +
@@ -138,8 +154,12 @@ public class CompanyStockData {
                 "\n totalDebt=" + totalDebt +
                 "\n shareHolderEquity=" + shareHolderEquity +
                 "\n cashFlow=" + cashFlow +
+                "\n PriceToCashFlow=" + PriceToCashFlow +
+                "\n DebtToEquity=" + DebtToEquity +
+                "\n Liquidity=" + Liquidity +
+                "\n LatestPrice=" + LatestPrice +
                 "\n id=" + id +
-                "\n symbol='" + symbol + '\'' +
-                '}';
+                "\n symbol=" + symbol +
+                "}\n";
     }
 }
