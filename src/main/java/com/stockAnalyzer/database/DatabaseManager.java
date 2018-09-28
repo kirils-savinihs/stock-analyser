@@ -23,61 +23,64 @@ public class DatabaseManager {
     /**
      * Adds a new CompanyStockData object's fields to the mysql database
      *
-     * @param symbol Company symbol e.g "INTC" for Intel Corporation
+     * @param symbols Company symbol e.g "INTC" for Intel Corporation
      */
-    public void add(String symbol) {
-        CompanyStockData data = new CompanyStockData(symbol);
-        Statement st = null;
-        try {
-            st = con.createStatement();
-            String sql = "INSERT INTO `stock_database`.`stocks`\n" +
-                    "(`id`,\n" +
-                    "`symbol`,\n" +
-                    "`PeRatio`,\n" +
-                    "`Sector`,\n" +
-                    "`PriceToBook`,\n" +
-                    "`PriceToSales`,\n" +
-                    "`DividendYield`,\n" +
-                    "`ReturnOnEquity`,\n" +
-                    "`ReturnOnAssets`,\n" +
-                    "`ProfitMargin`,\n" +
-                    "`TtmEPS`,\n" +
-                    "`Debt`,\n" +
-                    "`currentAssets`,\n" +
-                    "`currentDebt`,\n" +
-                    "`totalDebt`,\n" +
-                    "`shareHolderEquity`,\n" +
-                    "`cashFlow`,\n" +
-                    "`Liquidity`,\n" +
-                    "`LatestPrice`,\n" +
-                    "`DebtToEquity`,\n" +
-                    "`PriceToCashFlow`)\n" +
-                    "VALUES\n" +
-                    "(null,\n\'" +
-                    data.symbol + "\',\n" +
-                    data.PeRatio + ",\n\'" +
-                    data.Sector + "\',\n" +
-                    data.PriceToBook + ",\n" +
-                    data.PriceToSales + ",\n" +
-                    data.DividendYield + ",\n" +
-                    data.ReturnOnEquity + ",\n" +
-                    data.ReturnOnAssets + ",\n" +
-                    data.ProfitMargin + ",\n" +
-                    data.TtmEPS + ",\n" +
-                    data.Debt + ",\n" +
-                    data.currentAssets + ",\n" +
-                    data.currentDebt + ",\n" +
-                    data.totalDebt + ",\n" +
-                    data.shareHolderEquity + ",\n" +
-                    data.cashFlow + ",\n" +
-                    data.Liquidity + ",\n" +
-                    data.LatestPrice + ",\n" +
-                    data.DebtToEquity + ",\n" +
-                    data.PriceToCashFlow + ");\n";
+    public void add(String... symbols) {
+        for (String symbol : symbols) {
+            CompanyStockData data = new CompanyStockData(symbol);
+            Statement st = null;
+            try {
+                st = con.createStatement();
+                String sql = "INSERT INTO `stock_database`.`stocks`\n" +
+                        "(`id`,\n" +
+                        "`symbol`,\n" +
+                        "`PeRatio`,\n" +
+                        "`Sector`,\n" +
+                        "`PriceToBook`,\n" +
+                        "`PriceToSales`,\n" +
+                        "`DividendYield`,\n" +
+                        "`ReturnOnEquity`,\n" +
+                        "`ReturnOnAssets`,\n" +
+                        "`ProfitMargin`,\n" +
+                        "`TtmEPS`,\n" +
+                        "`Debt`,\n" +
+                        "`currentAssets`,\n" +
+                        "`currentDebt`,\n" +
+                        "`totalDebt`,\n" +
+                        "`shareHolderEquity`,\n" +
+                        "`cashFlow`,\n" +
+                        "`Liquidity`,\n" +
+                        "`LatestPrice`,\n" +
+                        "`DebtToEquity`,\n" +
+                        "`PriceToCashFlow`)\n" +
+                        "VALUES\n" +
+                        "(null,\n\'" +
+                        data.symbol + "\',\n" +
+                        data.PeRatio + ",\n\'" +
+                        data.Sector + "\',\n" +
+                        data.PriceToBook + ",\n" +
+                        data.PriceToSales + ",\n" +
+                        data.DividendYield + ",\n" +
+                        data.ReturnOnEquity + ",\n" +
+                        data.ReturnOnAssets + ",\n" +
+                        data.ProfitMargin + ",\n" +
+                        data.TtmEPS + ",\n" +
+                        data.Debt + ",\n" +
+                        data.currentAssets + ",\n" +
+                        data.currentDebt + ",\n" +
+                        data.totalDebt + ",\n" +
+                        data.shareHolderEquity + ",\n" +
+                        data.cashFlow + ",\n" +
+                        data.Liquidity + ",\n" +
+                        data.LatestPrice + ",\n" +
+                        data.DebtToEquity + ",\n" +
+                        data.PriceToCashFlow + ");\n";
 
-            st.executeUpdate(sql);
-        } catch (SQLException e) {
-            e.printStackTrace();
+                st.executeUpdate(sql);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
         }
 
 
@@ -234,7 +237,7 @@ public class DatabaseManager {
 //        System.out.println(db.getAll());
 
         db.resetDatabase();
-        db.add("INTC");
+        db.add("INTC", "FB");
         System.out.println(db.getAll());
         db.closeConnection();
     }
