@@ -104,11 +104,11 @@ public class CompanyStockData {
                 .build());
 
         keystats = iexTradingClient.executeRequest(new KeyStatsRequestBuilder()
-                .withSymbol("AAPL")
+                .withSymbol(symbol)
                 .build());
 
         financials = iexTradingClient.executeRequest(new FinancialsRequestBuilder()
-                .withSymbol("AAPL")
+                .withSymbol(symbol)
                 .build()).getFinancials().get(0);
 
 
@@ -127,10 +127,24 @@ public class CompanyStockData {
         this.totalDebt = financials.getTotalDebt();
         this.shareHolderEquity = financials.getShareholderEquity();
         this.cashFlow = financials.getCashFlow();
-        this.DebtToEquity = totalDebt.divide(shareHolderEquity, 4, BigDecimal.ROUND_HALF_UP);
+
+        if (totalDebt == null || shareHolderEquity == null)
+            this.DebtToEquity = new BigDecimal(0);
+        else
+            this.DebtToEquity = totalDebt.divide(shareHolderEquity, 4, BigDecimal.ROUND_HALF_UP);
+
         this.LatestPrice = quote.getLatestPrice();
-        this.PriceToCashFlow = this.LatestPrice.divide(this.cashFlow.divide(keystats.getSharesOutstanding(), 2, BigDecimal.ROUND_HALF_UP), 2, BigDecimal.ROUND_HALF_UP);
-        this.Liquidity = currentAssets.divide(currentDebt, 2, BigDecimal.ROUND_HALF_UP);
+
+
+        if (this.LatestPrice == null || this.cashFlow == null)
+            this.PriceToCashFlow = new BigDecimal(0);
+        else
+            this.PriceToCashFlow = this.LatestPrice.divide(this.cashFlow.divide(keystats.getSharesOutstanding(), 2, BigDecimal.ROUND_HALF_UP), 2, BigDecimal.ROUND_HALF_UP);
+
+        if (this.currentAssets == null || this.currentDebt == null)
+            this.Liquidity = new BigDecimal(0);
+        else
+            this.Liquidity = currentAssets.divide(currentDebt, 2, BigDecimal.ROUND_HALF_UP);
 
 
 
