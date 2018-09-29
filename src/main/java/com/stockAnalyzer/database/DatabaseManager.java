@@ -9,7 +9,7 @@ public class DatabaseManager {
 
     public DatabaseManager() {
         try {
-            con = DriverManager.getConnection("jdbc:mysql://localhost/?autoReconnect=true&useSSL=false", "root", "00000000");
+            con = DriverManager.getConnection("jdbc:mysql://localhost/?autoReconnect=true&useSSL=false", "root", "");
             con.setAutoCommit(false);
         } catch (SQLException e) {
 
@@ -25,7 +25,7 @@ public class DatabaseManager {
      *
      * @param symbols Company symbol e.g "INTC" for Intel Corporation
      */
-    public void add(String... symbols) {
+    public void add(String... symbols) { // ... takes any number of Strings
         for (String symbol : symbols) {
             CompanyStockData data = new CompanyStockData(symbol);
             Statement st = null;
@@ -237,7 +237,10 @@ public class DatabaseManager {
 //        System.out.println(db.getAll());
 
         db.resetDatabase();
-        db.add("INTC", "FB");
+        db.add("EL", "GIS", "HSY", "HRL", "SJM", 
+        		"K", "KMB", "KHC", "KR", "MKC", "TAP",
+        		"MKC", "AMG", "AFL", "ALL", "AIG",
+        		"ES", "EXC", "NRG", "PCG", "PPL");
         System.out.println(db.getAll());
         db.closeConnection();
     }

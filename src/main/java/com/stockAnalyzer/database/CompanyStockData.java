@@ -176,4 +176,6 @@ public class CompanyStockData {
                 "\n symbol=" + symbol +
                 "}\n";
     }
+
+	
 }
