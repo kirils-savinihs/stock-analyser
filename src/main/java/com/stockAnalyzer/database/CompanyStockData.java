@@ -293,10 +293,21 @@ public class CompanyStockData implements Comparable<CompanyStockData> {
 
         double sum = 0;
 
+        compPercentages[0] *= 0.18;
+        compPercentages[0] *= 0.18;
+        compPercentages[0] *= 0.18;
+        compPercentages[0] *= 0.1;
+        compPercentages[0] *= 0.1;
+        compPercentages[0] *= 0.1;
+        compPercentages[0] *= 0.05;
+        compPercentages[0] *= 0.05;
+        compPercentages[0] *= 0.05;
+
         for (double i : compPercentages)
             sum += i;
 
         System.out.println(sum);
+
 
         if (sum > 0)
             return 1;
