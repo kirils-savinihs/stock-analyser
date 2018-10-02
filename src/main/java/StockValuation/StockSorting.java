@@ -26,7 +26,7 @@ public class StockSorting {
 	ArrayList<CompanyStockData> companyList;
 
 	public StockSorting() {
-		this.database = new DatabaseManager();
+		this.database = new DatabaseManager("");
 		this.companyList = database.getAll();
 	}
 
