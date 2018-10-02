@@ -8,6 +8,7 @@ import pl.zankowski.iextrading4j.client.rest.request.stocks.FinancialsRequestBui
 import pl.zankowski.iextrading4j.client.rest.request.stocks.KeyStatsRequestBuilder;
 import pl.zankowski.iextrading4j.client.rest.request.stocks.QuoteRequestBuilder;
 
+import javax.xml.crypto.Data;
 import java.math.BigDecimal;
 
 public class CompanyStockData implements Comparable<CompanyStockData> {
@@ -177,6 +178,30 @@ public class CompanyStockData implements Comparable<CompanyStockData> {
                 "}\n";
     }
 
+    private static double compOneStat(BigDecimal first, BigDecimal second, boolean moreIsBetter) {
+        double division = 0;
+        double percentage = 0;
+
+
+        try {
+            division = first.divide(second, 3, BigDecimal.ROUND_HALF_UP).doubleValue();
+        } catch (NullPointerException e) {
+
+        } catch (ArithmeticException e) {
+
+        }
+
+        percentage = Math.abs(division - 1);
+
+        if ((!moreIsBetter && division > 1) || (moreIsBetter && division < 1)) {
+            percentage *= -1;
+        }
+
+        return percentage;
+    }
+
+
+
 
     @Override
     public int compareTo(CompanyStockData other) {
@@ -186,129 +211,35 @@ public class CompanyStockData implements Comparable<CompanyStockData> {
         double[] compPercentages = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
         double division = 0;
 
-        try {
-            //PeRation: less is better
-            division = this.PeRatio.divide(other.PeRatio, 3, BigDecimal.ROUND_HALF_UP).doubleValue();
-            if (division < 1)
-                compPercentages[0] = (1 - division);
-            else
-                compPercentages[0] = (division - 1) * -1;
-        } catch (NullPointerException e) {
-        } catch (ArithmeticException e) {
-        }
+        compPercentages[0] = compOneStat(this.PeRatio, other.PeRatio, false);
+        compPercentages[1] = compOneStat(this.PriceToBook, other.PriceToBook, false);
+        compPercentages[2] = compOneStat(this.PriceToSales, other.PriceToSales, false);
+        compPercentages[3] = compOneStat(this.DividendYield, other.DividendYield, true);
+        compPercentages[4] = compOneStat(this.ReturnOnEquity, other.ReturnOnEquity, true);
+        compPercentages[5] = compOneStat(this.ReturnOnAssets, other.ReturnOnAssets, true);
+        compPercentages[6] = compOneStat(this.ProfitMargin, other.ProfitMargin, true);
+        compPercentages[7] = compOneStat(this.Debt, other.Debt, false);
+        compPercentages[8] = compOneStat(this.Liquidity, other.Liquidity, false);
 
-
-        //PriceToBook: less is better
-        try {
-            division = this.PriceToBook.divide(other.PriceToBook, 3, BigDecimal.ROUND_HALF_UP).doubleValue();
-            if (division < 1)
-                compPercentages[1] = (1 - division);
-            else
-                compPercentages[1] = (division - 1) * -1;
-        } catch (NullPointerException e) {
-        } catch (ArithmeticException e) {
-        }
-
-
-        try {
-            //PriceToSales: less is better
-            division = this.PriceToSales.divide(other.PriceToSales, 3, BigDecimal.ROUND_HALF_UP).doubleValue();
-            if (division < 1)
-                compPercentages[2] = (1 - division);
-            else
-                compPercentages[2] = (division - 1) * -1;
-        } catch (NullPointerException e) {
-        } catch (ArithmeticException e) {
-        }
-
-
-        //DividendYield: more is better
-        try {
-            division = this.DividendYield.divide(other.DividendYield, 3, BigDecimal.ROUND_HALF_UP).doubleValue();
-            if (division < 1)
-                compPercentages[3] = (1 - division) * -1;
-            else
-                compPercentages[3] = (division - 1);
-        } catch (NullPointerException e) {
-        } catch (ArithmeticException e) {
-        }
-
-        //ReturnOnEquity: more is better
-
-        try {
-            division = this.ReturnOnEquity.divide(other.ReturnOnEquity, 3, BigDecimal.ROUND_HALF_UP).doubleValue();
-            if (division < 1)
-                compPercentages[4] = (1 - division) * -1;
-            else
-                compPercentages[4] = (division - 1);
-        } catch (NullPointerException e) {
-        } catch (ArithmeticException e) {
-        }
-
-        //ReturnOnAssets: more is better
-        try {
-            division = this.ReturnOnAssets.divide(other.ReturnOnAssets, 3, BigDecimal.ROUND_HALF_UP).doubleValue();
-            if (division < 1)
-                compPercentages[5] = (1 - division) * -1;
-            else
-                compPercentages[5] = (division - 1);
-        } catch (NullPointerException e) {
-        } catch (ArithmeticException e) {
-        }
-
-
-        //ProfitMargin: more is better
-        try {
-            division = this.ProfitMargin.divide(other.ProfitMargin, 3, BigDecimal.ROUND_HALF_UP).doubleValue();
-            if (division < 1)
-                compPercentages[6] = (1 - division) * -1;
-            else
-                compPercentages[6] = (division - 1);
-        } catch (NullPointerException e) {
-        } catch (ArithmeticException e) {
-        }
-
-        //Debt: less is better
-        try {
-            division = this.Debt.divide(other.Debt, 3, BigDecimal.ROUND_HALF_UP).doubleValue();
-            if (division < 1)
-                compPercentages[0] = (1 - division);
-            else
-                compPercentages[0] = (division - 1) * -1;
-        } catch (NullPointerException e) {
-        } catch (ArithmeticException e) {
-        }
-
-        //Liquidity: more is better
-        try {
-            division = this.Liquidity.divide(other.Liquidity, 3, BigDecimal.ROUND_HALF_UP).doubleValue();
-            if (division < 1)
-                compPercentages[6] = (1 - division) * -1;
-            else
-                compPercentages[6] = (division - 1);
-
-        } catch (NullPointerException e) {
-        } catch (ArithmeticException e) {
-        }
 
         double sum = 0;
 
-        compPercentages[0] *= 0.18;
-        compPercentages[0] *= 0.18;
-        compPercentages[0] *= 0.18;
-        compPercentages[0] *= 0.1;
-        compPercentages[0] *= 0.1;
-        compPercentages[0] *= 0.1;
-        compPercentages[0] *= 0.05;
-        compPercentages[0] *= 0.05;
-        compPercentages[0] *= 0.05;
+
+        //Weight of each stat
+        compPercentages[0] *= 0.17;
+        compPercentages[1] *= 0.16;
+        compPercentages[2] *= 0.16;
+        compPercentages[3] *= 0.11;
+        compPercentages[4] *= 0.11;
+        compPercentages[5] *= 0.11;
+        compPercentages[6] *= 0.06;
+        compPercentages[7] *= 0.06;
+        compPercentages[8] *= 0.06;
 
         for (double i : compPercentages)
             sum += i;
 
         System.out.println(sum);
-
-
         if (sum > 0)
             return 1;
         else if (sum < 0)
@@ -317,4 +248,59 @@ public class CompanyStockData implements Comparable<CompanyStockData> {
             return 0;
 
     }
+
+    //Testing code
+
+//    public static void main(String[] args) {
+//
+//        CompanyStockData testObj1 = new CompanyStockData(
+//                BigDecimal.valueOf(1),//PE <
+//                "Financial Services",
+//                BigDecimal.valueOf(1),//PriceToBook <
+//                BigDecimal.valueOf(1),//PriceToSales <
+//                BigDecimal.valueOf(2),//DividendYield >
+//                BigDecimal.valueOf(2),//ReturnOnEquity >
+//                BigDecimal.valueOf(2),//ReturnOnAssets >
+//                BigDecimal.valueOf(2),//ProfitMargin >
+//                BigDecimal.valueOf(1),//TtmEPS
+//                BigDecimal.valueOf(1),//Debt <
+//                BigDecimal.valueOf(1),//currentAssets
+//                BigDecimal.valueOf(1),//currentDebt
+//                BigDecimal.valueOf(1),//totalDebt
+//                BigDecimal.valueOf(1),//shareHolderEquity
+//                BigDecimal.valueOf(1),//cashFlow
+//                BigDecimal.valueOf(1),//PriceTOCashFlow
+//                BigDecimal.valueOf(1),//DebtToEquity
+//                BigDecimal.valueOf(1),//Liquidity <
+//                BigDecimal.valueOf(1),//LatestPrice
+//                1,"TEST1");
+//
+//        CompanyStockData testObj2 = new CompanyStockData(
+//                BigDecimal.valueOf(2),
+//                "Financial Services",
+//                BigDecimal.valueOf(2),
+//                BigDecimal.valueOf(2),
+//                BigDecimal.valueOf(1),
+//                BigDecimal.valueOf(1),
+//                BigDecimal.valueOf(1),
+//                BigDecimal.valueOf(1),
+//                BigDecimal.valueOf(2),
+//                BigDecimal.valueOf(2),
+//                BigDecimal.valueOf(2),
+//                BigDecimal.valueOf(2),
+//                BigDecimal.valueOf(2),
+//                BigDecimal.valueOf(2),
+//                BigDecimal.valueOf(2),
+//                BigDecimal.valueOf(2),
+//                BigDecimal.valueOf(2),
+//                BigDecimal.valueOf(2),
+//                BigDecimal.valueOf(2),
+//                1,"TEST2");
+//
+//
+//        System.out.println(testObj1.compareTo(testObj2));
+//
+//        System.out.println(testObj2.compareTo(testObj1));
+//
+//    }
 }
