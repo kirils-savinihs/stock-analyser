@@ -5,10 +5,10 @@
 
     <appender name="FILE" class="org.apache.log4j.FileAppender">
 
-        <param name="file" value="./log.out"/>
+        <param name="file" value="./logMain.out"/>
         <param name="immediateFlush" value="true"/>
-        <param name="threshold" value="debug"/>
-        <param name="append" value="false"/>
+        <param name="threshold" value="info"/>
+        <param name="append" value="true"/>
 
         <layout class="org.apache.log4j.PatternLayout">
             <param name="ConversionPattern"
@@ -17,7 +17,7 @@
     </appender>
 
     <logger name="StockAnalyser" additivity="false">
-        <level value="DEBUG" />
+        <level value="INFO" />
         <appender-ref ref="FILE" />
     </logger>
 
