@@ -26,12 +26,15 @@ public class JavaMail {
 
         String t = "<p>Good:<br>1)Facebook <br>2)Twitter </p><p>Bad:<br>1)Bing<br>2)Vine</p>";
 
-        test1.add("Facebook");
-        test1.add("Facebook");
-        test2.add("Twitter");
-        test2.add("Twitter");
-        test3.add("Bing");
-        test3.add("Bing");
+        for(int i=0; i<6; i++){
+            test1.add("Facebook");
+            test1.add("Facebook");
+            test2.add("Twitter");
+            test2.add("Twitter");
+            test3.add("Bing");
+            test3.add("Bing");
+        }
+
         new JavaMail().FormForTesting(test1, test2, test3);
         //new JavaMail().FrontEnd(test1, test2, test3);
     }
@@ -86,7 +89,6 @@ public class JavaMail {
                 "    padding: 20px;\n" +
                 "    font-size: 22px;\n"+
                 "    list-style-type: square;\n"+
-                "    height: 300px; /* Should be removed. Only for demonstration */\n" +
                 "}"+".row:after {\n" +
                 "    content: \"\";\n" +
                 "    display: table;\n" +
