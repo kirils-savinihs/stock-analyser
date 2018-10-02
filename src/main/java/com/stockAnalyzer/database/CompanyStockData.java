@@ -1,15 +1,18 @@
 package com.stockAnalyzer.database;
 
-import com.sun.xml.internal.xsom.impl.scd.Iterators;
-import pl.zankowski.iextrading4j.api.stocks.*;
+
+import pl.zankowski.iextrading4j.api.stocks.Company;
+import pl.zankowski.iextrading4j.api.stocks.Financial;
+import pl.zankowski.iextrading4j.api.stocks.KeyStats;
+import pl.zankowski.iextrading4j.api.stocks.Quote;
 import pl.zankowski.iextrading4j.client.IEXTradingClient;
 import pl.zankowski.iextrading4j.client.rest.request.stocks.CompanyRequestBuilder;
 import pl.zankowski.iextrading4j.client.rest.request.stocks.FinancialsRequestBuilder;
 import pl.zankowski.iextrading4j.client.rest.request.stocks.KeyStatsRequestBuilder;
 import pl.zankowski.iextrading4j.client.rest.request.stocks.QuoteRequestBuilder;
 
-import javax.xml.crypto.Data;
 import java.math.BigDecimal;
+import java.util.Comparator;
 
 public class CompanyStockData implements Comparable<CompanyStockData> {
 
@@ -40,6 +43,13 @@ public class CompanyStockData implements Comparable<CompanyStockData> {
 
     public final int id;
     public final String symbol;
+
+    public static final Comparator<CompanyStockData> comparator = new Comparator<CompanyStockData>() {
+        @Override
+        public int compare(CompanyStockData o1, CompanyStockData o2) {
+            return o1.compareTo(o2);
+        }
+    };
 
 
     public CompanyStockData(BigDecimal peRatio,
