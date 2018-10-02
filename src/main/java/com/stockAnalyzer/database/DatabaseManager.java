@@ -7,9 +7,9 @@ public class DatabaseManager {
 
     private Connection con;
 
-    public DatabaseManager() {
+    public DatabaseManager(String mysqlpassword) {
         try {
-            con = DriverManager.getConnection("jdbc:mysql://localhost/?autoReconnect=true&useSSL=false", "root", "");
+            con = DriverManager.getConnection("jdbc:mysql://localhost/?autoReconnect=true&useSSL=false", "root", mysqlpassword);
             con.setAutoCommit(false);
         } catch (SQLException e) {
 
@@ -223,27 +223,6 @@ public class DatabaseManager {
 
     }
 
-
-
-    public static void main(String[] args) {
-        //For testing purposes only
-
-        DatabaseManager db = new DatabaseManager();
-//        CompanyStockData st2 = db.findBySymbol("INTC");
-//        System.out.println(st2.getId()+st2.getSymbol());
-//        db.resetDatabase();
-//        db.add("INTC");
-//        db.add("FB");
-//        System.out.println(db.getAll());
-
-        db.resetDatabase();
-        db.add("EL", "GIS", "HSY", "HRL", "SJM", 
-        		"K", "KMB", "KHC", "KR", "MKC", "TAP",
-        		"MKC", "AMG", "AFL", "ALL", "AIG",
-        		"ES", "EXC", "NRG", "PCG", "PPL");
-        System.out.println(db.getAll());
-        db.closeConnection();
-    }
 
 
 
