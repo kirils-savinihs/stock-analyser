@@ -1,15 +1,11 @@
 package StockValuation;
 
+import com.stockAnalyzer.database.CompanyStockData;
+import com.stockAnalyzer.database.DatabaseManager;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-
-import org.springframework.util.SocketUtils;
-
-import com.stockAnalyzer.database.*;
-
-import afu.org.checkerframework.checker.units.qual.s;
-import antlr.collections.List;
 
 public class StockSorting {
 	static final String financials = "Financial Services";
@@ -26,7 +22,7 @@ public class StockSorting {
 	ArrayList<CompanyStockData> companyList;
 
 	public StockSorting() {
-		this.database = new DatabaseManager("");
+        this.database = new DatabaseManager();
 		this.companyList = database.getAll();
 	}
 
