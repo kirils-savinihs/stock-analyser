@@ -27,6 +27,7 @@ public class DatabaseManager {
      */
     public void add(String... symbols) { // ... takes any number of Strings
         for (String symbol : symbols) {
+            System.out.println("Adding " + symbol);
             CompanyStockData data = new CompanyStockData(symbol);
             Statement st = null;
             try {
