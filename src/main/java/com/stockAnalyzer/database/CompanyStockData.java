@@ -22,6 +22,7 @@ public class CompanyStockData implements Comparable<CompanyStockData> {
     private Financial financials;
     public final BigDecimal PeRatio;//less is better
     public final String Sector;
+    public final String CompName;
     public final BigDecimal PriceToBook;//less is better
     public final BigDecimal PriceToSales;//less is better
     public final BigDecimal DividendYield;//more is better
@@ -72,7 +73,8 @@ public class CompanyStockData implements Comparable<CompanyStockData> {
                             BigDecimal DebtToEquity,
                             BigDecimal PriceToCashFlow,
                             int id,
-                            String symbol) {
+                            String symbol,
+                            String CompName) {
         this.PeRatio = peRatio;
         this.Sector = sector;
         this.PriceToBook = priceToBook;
@@ -94,6 +96,7 @@ public class CompanyStockData implements Comparable<CompanyStockData> {
         this.LatestPrice = LatestPrice;
         this.PriceToCashFlow = PriceToCashFlow;
         this.Liquidity = Liquidity;
+        this.CompName = CompName;
     }
 
     public CompanyStockData(String symbol) {
@@ -157,6 +160,8 @@ public class CompanyStockData implements Comparable<CompanyStockData> {
         else
             this.Liquidity = currentAssets.divide(currentDebt, 2, BigDecimal.ROUND_HALF_UP);
 
+        this.CompName = company.getCompanyName();
+
 
     }
 
@@ -184,6 +189,7 @@ public class CompanyStockData implements Comparable<CompanyStockData> {
                 "\n LatestPrice=" + LatestPrice +
                 "\n id=" + id +
                 "\n symbol=" + symbol +
+                "\n CompName=" + CompName +
                 "}\n";
     }
 
