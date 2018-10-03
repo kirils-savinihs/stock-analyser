@@ -38,8 +38,8 @@ public class JavaMail {
             test3.add("Bing");
         }
 
-        new JavaMail().FormForTesting(test1, test2, test3);
-        //new StockAnalyser.JavaMail().FrontEnd(test1, test2, test3);
+        //new JavaMail().FormForTesting(test1, test2, test3);
+        new StockAnalyser.JavaMail().FrontEnd(test1, test2, test3);
     }
 
     public void FrontEnd(List<String> a, List<String> b, List<String> c){
@@ -62,7 +62,7 @@ public class JavaMail {
             conn.setAutoCommit(false);
 
             //get emails from SQL Database
-            PreparedStatement ps = conn.prepareStatement("select eMail from database_activity.Clients");
+            PreparedStatement ps = conn.prepareStatement("select eMail from stock_database.Clients");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 recipients.add(rs.getString("eMail"));
@@ -166,7 +166,8 @@ public class JavaMail {
                         "  <div class=\"column\" style=\"background-color:#008000;\"><h3>Financials</h3>"+ mes2 +"</div>\n" +
                         "  <div class=\"column\" style=\"background-color:#7FFF00;\"><h3>Consumers</h3>" + mes3 + " </div>\n" +
                         "</div>"+
-                        "<p>We hope this information is found useful and thank you for using our services.</p> <p>See you again tommorow.</p><h2>StockRatio Team.</h2>"+
+                        "<p>We hope this information is found useful and thank you for using our services.</p> <p>See you again tommorow.</p>"+
+                        "<h2>StockRatio Team.</h2>"+
                         "</body>\n" +
                         "</html>", "text/html; charset=utf-8");
 
