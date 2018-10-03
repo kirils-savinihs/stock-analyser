@@ -16,13 +16,13 @@ public class StockSorting {
 
 	enum ratio {
 		PE, PB, PS, PC, DIVYLD, ROE, ROA, PM, LIQ
-	};
+    }
 
-	DatabaseManager database;
+    DatabaseManager database;
 	ArrayList<CompanyStockData> companyList;
 
 	public StockSorting() {
-        this.database = new DatabaseManager();
+        this.database = new DatabaseManager("");
 		this.companyList = database.getAll();
 	}
 
