@@ -47,7 +47,7 @@ public class CompanyStockData implements Comparable<CompanyStockData> {
     public static final Comparator<CompanyStockData> comparator = new Comparator<CompanyStockData>() {
         @Override
         public int compare(CompanyStockData o1, CompanyStockData o2) {
-            return o1.compareTo(o2);
+            return o2.compareTo(o1);
         }
     };
 
@@ -99,7 +99,6 @@ public class CompanyStockData implements Comparable<CompanyStockData> {
     public CompanyStockData(String symbol) {
         this(0, symbol);
     }
-
 
     public CompanyStockData(int id, String symbol) {
         this.symbol = symbol;
@@ -188,27 +187,67 @@ public class CompanyStockData implements Comparable<CompanyStockData> {
                 "}\n";
     }
 
+
     private static double compOneStat(BigDecimal first, BigDecimal second, boolean moreIsBetter) {
+
+        double sign;
+        try {
+            sign = first.compareTo(second);
+        } catch (NullPointerException e) {
+            return 0;
+        }
         double division = 0;
         double percentage = 0;
 
+        BigDecimal bigger;
+        BigDecimal smaller;
+
+        if (sign == -1) {
+            bigger = second;
+            smaller = first;
+        } else {
+            bigger = first;
+            smaller = second;
+        }
 
         try {
-            division = first.divide(second, 3, BigDecimal.ROUND_HALF_UP).doubleValue();
+            division = bigger.divide(smaller, 3, BigDecimal.ROUND_HALF_UP).doubleValue();
         } catch (NullPointerException e) {
 
         } catch (ArithmeticException e) {
 
         }
 
-        percentage = Math.abs(division - 1);
+        percentage = (division - 1) * sign;
 
-        if ((!moreIsBetter && division > 1) || (moreIsBetter && division < 1)) {
+        if (!moreIsBetter)
             percentage *= -1;
-        }
+
 
         return percentage;
     }
+
+//    private static double compOneStat(BigDecimal first, BigDecimal second, boolean moreIsBetter) {
+//        double division = 0;
+//        double percentage = 0;
+//
+//
+//        try {
+//            division = first.divide(second, 3, BigDecimal.ROUND_HALF_UP).doubleValue();
+//        } catch (NullPointerException e) {
+//
+//        } catch (ArithmeticException e) {
+//
+//        }
+//
+//        percentage = Math.abs(division - 1);
+//
+//        if ((!moreIsBetter && division > 1) || (moreIsBetter && division < 1)) {
+//            percentage *= -1;
+//        }
+//
+//        return percentage;
+//    }
 
 
     @Override
@@ -247,7 +286,7 @@ public class CompanyStockData implements Comparable<CompanyStockData> {
         for (double i : compPercentages)
             sum += i;
 
-        System.out.println(sum);
+
         if (sum > 0)
             return 1;
         else if (sum < 0)
@@ -257,8 +296,8 @@ public class CompanyStockData implements Comparable<CompanyStockData> {
 
     }
 
-    //Testing code
-
+//    Testing code
+//
 //    public static void main(String[] args) {
 //
 //        CompanyStockData testObj1 = new CompanyStockData(
@@ -309,6 +348,11 @@ public class CompanyStockData implements Comparable<CompanyStockData> {
 //        System.out.println(testObj1.compareTo(testObj2));
 //
 //        System.out.println(testObj2.compareTo(testObj1));
+//
+//        System.out.println(compOneStatExperimental(BigDecimal.valueOf(1),BigDecimal.valueOf(2),true)); //expect -1
+//        System.out.println(compOneStatExperimental(BigDecimal.valueOf(2),BigDecimal.valueOf(1),false));//expect -1
+//        System.out.println(compOneStatExperimental(BigDecimal.valueOf(2),BigDecimal.valueOf(1),true)); //expect 1
+//        System.out.println(compOneStatExperimental(BigDecimal.valueOf(1),BigDecimal.valueOf(2),false));//expect 1
 //
 //    }
 }
