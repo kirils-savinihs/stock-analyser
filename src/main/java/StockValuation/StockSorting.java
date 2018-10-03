@@ -19,7 +19,7 @@ public class StockSorting {
 	String[] sectors = { financials, utilities, consumers };
 
 	enum ratio {
-		PE, PB, PS, PC, DIVYLD, ROE, ROA, PM, LIQ
+		PE, PB, PS, PC, DIVYLD, ROE, ROA, PM
 	};
 
 	DatabaseManager database;
@@ -99,7 +99,6 @@ public class StockSorting {
 
 		switch (Ratio) {
 		case PE:
-			// lambda (1, 2)  pE vieta
 			Collections.sort(sectorList, Pe);
 			break;
 		case PB:
@@ -213,29 +212,7 @@ public class StockSorting {
 		System.out.println("Final consumers sorting: ");
 		System.out.println(ss.finalConsumersSorting());
 		
-		
-		/*ArrayList<CompanyStockData> utilSector = ss.getUtilities();
-		ArrayList<CompanyStockData> sortedPE = ss.getBy(ratio.PE, utilSector);
-		ArrayList<CompanyStockData> sortedPB = ss.getBy(ratio.PB, sortedPE);
-		ArrayList<CompanyStockData> sortedPS = ss.getBy(ratio.PS, sortedPB);
-		ArrayList<CompanyStockData> sortedDY = ss.getBy(ratio.DIVYLD, sortedPS);
-		ArrayList<CompanyStockData> sortedRoE = ss.getBy(ratio.ROE, sortedDY);
-		ArrayList<CompanyStockData> sortedRoA = ss.getBy(ratio.ROA, sortedRoE);
-		ArrayList<CompanyStockData> sortedPM = ss.getBy(ratio.PM, sortedRoA);
-		System.out.println(sortedPM);*/
-		
-		//
-		/*for (CompanyStockData item : ss.finalFinancialSorting()) {
-			System.out.println(item.symbol);
-		}
-		System.out.println("--------------------------------------------------");
-		System.out.println("Sorting companies by financials: ");
-		System.out.println(ss.getUtilities());
-		System.out.println("Final utilities sorted: ");
-		System.out.println(ss.getFinancialServices());
-		for (CompanyStockData item1 : ss.finalUtilitiesSorting()) {
-			System.out.println(item1.symbol);
-		}*/
+	
 		}
 		catch (Exception e) {
 			System.err.println(e);}
@@ -243,13 +220,7 @@ public class StockSorting {
 	finally {	
 		ss.database.closeConnection();
 		}
-		/*System.out.println("--------------------------------------------------");
-		System.out.println("Consumers sorted: ");
-		for (CompanyStockData item2 : ss.finalConsumersSorting()) {
-			System.out.println(item2.symbol);
-		}*/
-
-		// System.out.println(ss.getBy(ratio.PB, ss.getFinancialServices()));
+		
 
 	
 }
