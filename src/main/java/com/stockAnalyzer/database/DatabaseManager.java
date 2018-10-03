@@ -1,12 +1,19 @@
 package com.stockAnalyzer.database;
 
-import java.sql.*;
-import java.util.ArrayList;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class DatabaseManager {
 
     private Connection con;
 
+    /**
+     * Create database manager
+     *
+     * @param mysqlpassword MySQL root password
+     */
     public DatabaseManager(String mysqlpassword) {
         try {
             con = DriverManager.getConnection("jdbc:mysql://localhost/?autoReconnect=true&useSSL=false", "root", mysqlpassword);
@@ -148,86 +155,86 @@ public class DatabaseManager {
         }
     }
 
-    /**
-     * Finds stock by id
-     *
-     * @param id stock id in database
-     * @return CompanyStockData object
-     */
-    public CompanyStockData findById(int id) {
-        CompanyStockData companyStockData = null;
-        try {
-            Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("select * from stock_database.stocks where id=" + id);
-            rs.next();
-            companyStockData = new CompanyStockData(id, rs.getString(2));
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return companyStockData;
-    }
+//    /**
+//     * Finds stock by id
+//     *
+//     * @param id stock id in database
+//     * @return CompanyStockData object
+//     */
+//    public CompanyStockData findById(int id) {
+//        CompanyStockData companyStockData = null;
+//        try {
+//            Statement st = con.createStatement();
+//            ResultSet rs = st.executeQuery("select * from stock_database.stocks where id=" + id);
+//            rs.next();
+//            companyStockData = new CompanyStockData(id, rs.getString(2));
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//        return companyStockData;
+//    }
 
-    /**
-     * Finds stock by symbol example: "INTC" for Intel Corporation
-     * @param symbol stock symbol
-     * @return CompanyStockData object or null if sqlexception occurs
-     */
-
-    public CompanyStockData findBySymbol(String symbol) {
-        CompanyStockData companyStockData = null;
-        try {
-            java.sql.Statement st = con.createStatement();
-            System.out.println("select * from stock_database.stocks where symbol=\""+symbol+"\";");
-            ResultSet rs = st.executeQuery("select * from stock_database.stocks where symbol=\""+symbol+"\"");
-            rs.next();
-            companyStockData = new CompanyStockData(rs.getInt(1), rs.getString(2));
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return companyStockData;
-    }
-
-    public ArrayList<CompanyStockData> getAll() {
-        ArrayList<CompanyStockData> data = new ArrayList<CompanyStockData>();
-        try {
-            java.sql.Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("select * from stock_database.stocks");
-
-
-            while (rs.next()) {
-                data.add(new CompanyStockData(
-                        rs.getBigDecimal(4),
-                        rs.getString(5),
-                        rs.getBigDecimal(6),
-                        rs.getBigDecimal(7),
-                        rs.getBigDecimal(8),
-                        rs.getBigDecimal(9),
-                        rs.getBigDecimal(10),
-                        rs.getBigDecimal(11),
-                        rs.getBigDecimal(12),
-                        rs.getBigDecimal(13),
-                        rs.getBigDecimal(14),
-                        rs.getBigDecimal(15),
-                        rs.getBigDecimal(16),
-                        rs.getBigDecimal(17),
-                        rs.getBigDecimal(18),
-                        rs.getBigDecimal(19),
-                        rs.getBigDecimal(20),
-                        rs.getBigDecimal(21),
-                        rs.getBigDecimal(22),
-                        rs.getInt(1),
-                        rs.getString(2),
-                        rs.getString(3)
-                ));
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return data;
-
-
-    }
+//    /**
+//     * Finds stock by symbol example: "INTC" for Intel Corporation
+//     * @param symbol stock symbol
+//     * @return CompanyStockData object or null if sqlexception occurs
+//     */
+//
+//    public CompanyStockData findBySymbol(String symbol) {
+//        CompanyStockData companyStockData = null;
+//        try {
+//            java.sql.Statement st = con.createStatement();
+//            System.out.println("select * from stock_database.stocks where symbol=\""+symbol+"\";");
+//            ResultSet rs = st.executeQuery("select * from stock_database.stocks where symbol=\""+symbol+"\"");
+//            rs.next();
+//            companyStockData = new CompanyStockData(rs.getInt(1), rs.getString(2));
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//        return companyStockData;
+//    }
+//
+//    public ArrayList<CompanyStockData> getAll() {
+//        ArrayList<CompanyStockData> data = new ArrayList<CompanyStockData>();
+//        try {
+//            java.sql.Statement st = con.createStatement();
+//            ResultSet rs = st.executeQuery("select * from stock_database.stocks");
+//
+//
+//            while (rs.next()) {
+//                data.add(new CompanyStockData(
+//                        rs.getBigDecimal(4),
+//                        rs.getString(5),
+//                        rs.getBigDecimal(6),
+//                        rs.getBigDecimal(7),
+//                        rs.getBigDecimal(8),
+//                        rs.getBigDecimal(9),
+//                        rs.getBigDecimal(10),
+//                        rs.getBigDecimal(11),
+//                        rs.getBigDecimal(12),
+//                        rs.getBigDecimal(13),
+//                        rs.getBigDecimal(14),
+//                        rs.getBigDecimal(15),
+//                        rs.getBigDecimal(16),
+//                        rs.getBigDecimal(17),
+//                        rs.getBigDecimal(18),
+//                        rs.getBigDecimal(19),
+//                        rs.getBigDecimal(20),
+//                        rs.getBigDecimal(21),
+//                        rs.getBigDecimal(22),
+//                        rs.getInt(1),
+//                        rs.getString(2),
+//                        rs.getString(3)
+//                ));
+//            }
+//
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//        return data;
+//
+//
+//    }
 
 
 

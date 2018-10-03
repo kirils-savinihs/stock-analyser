@@ -16,6 +16,8 @@ import java.util.Comparator;
 
 public class CompanyStockData implements Comparable<CompanyStockData> {
 
+
+    //All the variables:
     private Quote quote;
     private Company company;
     private KeyStats keystats;
@@ -40,11 +42,13 @@ public class CompanyStockData implements Comparable<CompanyStockData> {
     public final BigDecimal DebtToEquity;
     public final BigDecimal Liquidity;//more is better
     public final BigDecimal LatestPrice;
-
-
     public final int id;
     public final String symbol;
 
+
+    /**
+     * Comparator for Collections.sort();
+     */
     public static final Comparator<CompanyStockData> comparator = new Comparator<CompanyStockData>() {
         @Override
         public int compare(CompanyStockData o1, CompanyStockData o2) {
@@ -53,6 +57,32 @@ public class CompanyStockData implements Comparable<CompanyStockData> {
     };
 
 
+    /**
+     * Constructor for row from database
+     *
+     * @param peRatio
+     * @param sector
+     * @param priceToBook
+     * @param priceToSales
+     * @param dividendYield
+     * @param returnOnEquity
+     * @param returnOnAssets
+     * @param profitMargin
+     * @param ttmEPS
+     * @param debt
+     * @param currentAssets
+     * @param currentDebt
+     * @param totalDebt
+     * @param shareHolderEquity
+     * @param cashFlow
+     * @param Liquidity
+     * @param LatestPrice
+     * @param DebtToEquity
+     * @param PriceToCashFlow
+     * @param id
+     * @param symbol
+     * @param CompName
+     */
     public CompanyStockData(BigDecimal peRatio,
                             String sector,
                             BigDecimal priceToBook,
@@ -99,10 +129,20 @@ public class CompanyStockData implements Comparable<CompanyStockData> {
         this.CompName = CompName;
     }
 
+    /**
+     * CompanyStockData constructor using IEXTrading API data
+     * @param symbol Company symbol
+     */
     public CompanyStockData(String symbol) {
         this(0, symbol);
     }
 
+
+    /**
+     * CompanyStockData constructor using IEXTrading API data
+     *
+     * @param symbol Company symbol
+     */
     public CompanyStockData(int id, String symbol) {
         this.symbol = symbol;
         this.id = id;
@@ -194,6 +234,13 @@ public class CompanyStockData implements Comparable<CompanyStockData> {
     }
 
 
+    /**
+     * Compares two big decimals
+     * @param first first variable
+     * @param second second variable
+     * @param moreIsBetter determines whether a bigger number is considered better
+     * @return -1 if worse first is worse, 0 if same, +1 if first is better
+     */
     private static double compOneStat(BigDecimal first, BigDecimal second, boolean moreIsBetter) {
 
         double sign;
@@ -258,6 +305,11 @@ public class CompanyStockData implements Comparable<CompanyStockData> {
 //    }
 
 
+    /**
+     * Compares this object to another using all their variables
+     * @param other CompanyStockData object that should be compared to
+     * @return -1 if this is worse, 0 if same, +1 if this is better
+     */
     @Override
     public int compareTo(CompanyStockData other) {
         // return >0 if this is better , return <0 if this is worse
