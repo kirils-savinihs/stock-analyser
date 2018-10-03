@@ -128,7 +128,7 @@ public class DatabaseManager {
                 "Sector varchar(30),\n" +
                 "PriceToBook  double,\n" +
                 "PriceToSales double,\n" +
-                "DividendYield\tdouble,\n" +
+                "DividendYield double,\n" +
                 "ReturnOnEquity double,\n" +
                 "ReturnOnAssets double,\n" +
                 "ProfitMargin double,\n" +
