@@ -41,9 +41,7 @@ public class DatabaseManager {
                             data.DividendYield == null ||
                             data.ReturnOnEquity == null ||
                             data.ReturnOnAssets == null ||
-                            data.ProfitMargin == null ||
-                            data.Debt == null ||
-                            data.Liquidity == null
+                            data.ProfitMargin == null
             ) {
                 System.out.println(data.symbol + " was not added, not all data is available from api");
                 continue;
