@@ -1,14 +1,11 @@
 package StockValuation;
 
+import com.stockAnalyzer.database.CompanyStockData;
+import com.stockAnalyzer.database.DatabaseManager;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-
-import org.springframework.util.SocketUtils;
-
-import com.stockAnalyzer.database.*;
-
-import afu.org.checkerframework.checker.units.qual.s;
 import java.util.List;
 
 public class StockSorting {
@@ -121,7 +118,7 @@ public class StockSorting {
 			break;
 		}
 
-		return sectorList.subList(0, sectorList.size()-1);
+        return sectorList.subList(0, sectorList.size() - 2);
 
 	}
 
