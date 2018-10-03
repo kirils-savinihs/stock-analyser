@@ -34,6 +34,23 @@ public class DatabaseManager {
         for (String symbol : symbols) {
             System.out.println("Adding " + symbol);
             CompanyStockData data = new CompanyStockData(symbol);
+            if (
+                    data.PeRatio == null ||
+                            data.PriceToBook == null ||
+                            data.PriceToSales == null ||
+                            data.DividendYield == null ||
+                            data.ReturnOnEquity == null ||
+                            data.ReturnOnAssets == null ||
+                            data.ProfitMargin == null ||
+                            data.Debt == null ||
+                            data.Liquidity == null
+            ) {
+                System.out.println(data.symbol + " was not added, not all data is available from api");
+                continue;
+            }
+
+
+
             Statement st = null;
             try {
                 st = con.createStatement();
