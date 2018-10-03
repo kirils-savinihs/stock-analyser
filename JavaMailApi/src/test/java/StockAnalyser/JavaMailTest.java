@@ -32,7 +32,7 @@ public class JavaMailTest {
         mail.recipients=rec;
         Mockito.when(rec.get(Mockito.anyInt())).thenThrow(MessagingException.class);
         rec.add("test018@gmail.com");
-        mail.SendMessage(rec, rec, rec, rec);
+        mail.SendMessage(rec, rec, rec, rec, rec, rec, rec, rec, rec, rec);
         Mockito.when(rec.add(Mockito.anyString())).thenThrow(SQLException.class);
         mail.FormSQL();
 
@@ -61,7 +61,7 @@ public class JavaMailTest {
             List<String> rec = new ArrayList<String>();
             rec.add("test018@gmail.com");
             mail = new JavaMail();
-            boolean result = mail.SendMessage(rec, rec, rec, rec);
+            boolean result = mail.SendMessage(rec, rec, rec, rec, rec, rec, rec, rec, rec, rec);
             assertEquals("Incorect data about email.", true, result);
             logger.info("OK");
 
@@ -77,7 +77,7 @@ public class JavaMailTest {
             List<String> rec = new ArrayList<String>();
             rec.add("IncorectValue");
             mail = new JavaMail();
-            boolean result = mail.SendMessage(rec, rec, rec, rec);
+            boolean result = mail.SendMessage(rec, rec, rec, rec, rec, rec, rec, rec, rec, rec);
             assertEquals("Incorect data about email.", false, result);
             logger.info("OK");
 
@@ -92,7 +92,7 @@ public class JavaMailTest {
         try {
             List<String> rec = new ArrayList<String>();
             mail = new JavaMail();
-            boolean result = mail.SendMessage(rec, rec, rec, rec);
+            boolean result = mail.SendMessage(rec, rec, rec, rec, rec, rec, rec, rec, rec, rec);
             assertEquals("Incorect data about email, accepted empty recipient list.", false, result);
             logger.info("OK");
 
