@@ -207,30 +207,7 @@ public class CompanyStockData implements Comparable<CompanyStockData> {
 
     @Override
     public String toString() {
-        return "CompanyStockData{" +
-                "\n PeRatio=" + PeRatio +
-                "\n Sector=" + Sector +
-                "\n PriceToBook=" + PriceToBook +
-                "\n PriceToSales=" + PriceToSales +
-                "\n DividendYield=" + DividendYield +
-                "\n ReturnOnEquity=" + ReturnOnEquity +
-                "\n ReturnOnAssets=" + ReturnOnAssets +
-                "\n ProfitMargin=" + ProfitMargin +
-                "\n TtmEPS=" + TtmEPS +
-                "\n Debt=" + Debt +
-                "\n currentAssets=" + currentAssets +
-                "\n currentDebt=" + currentDebt +
-                "\n totalDebt=" + totalDebt +
-                "\n shareHolderEquity=" + shareHolderEquity +
-                "\n cashFlow=" + cashFlow +
-                "\n PriceToCashFlow=" + PriceToCashFlow +
-                "\n DebtToEquity=" + DebtToEquity +
-                "\n Liquidity=" + Liquidity +
-                "\n LatestPrice=" + LatestPrice +
-                "\n id=" + id +
-                "\n symbol=" + symbol +
-                "\n CompName=" + CompName +
-                "}\n";
+        return this.symbol + ", " + this.CompName + ", " + this.LatestPrice;
     }
 
 
