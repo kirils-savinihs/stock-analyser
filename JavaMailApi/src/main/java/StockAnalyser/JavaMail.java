@@ -42,9 +42,9 @@ public class JavaMail {
         //new StockAnalyser.JavaMail().FrontEnd(test1, test2, test3);
     }
 
-    public void FrontEnd(List<String> a, List<String> b, List<String> c, List<String> d, List<String> e, List<String> f, List<String> g, List<String> h, List<String> i){
+    public void FrontEnd(List<String> a, List<String> b, List<String> c){
 
-        SendMessage(FormSQL(),a,b,c, d, e, f, g ,h ,i);
+        SendMessage(FormSQL(),a,b,c);
     }
 
     //this method is only for Testing
@@ -52,7 +52,7 @@ public class JavaMail {
         recipients.add("testjava018@gmail.com");
         //recipients.add("incorectvalue");
         //recipients.add("ingus.p98@gmail.com");
-        SendMessage(recipients, a, b, c, a, b, c, a, b, c);
+        SendMessage(recipients, a, b, c);
     }
 
     public List<String> FormSQL() {
@@ -73,7 +73,7 @@ public class JavaMail {
         return recipients;
     }
 
-    public boolean SendMessage(List<String> rec, List<String> info1_1, List<String> info1_2, List<String> info1_3, List<String> info2_1, List<String> info2_2, List<String> info2_3, List<String> info3_1, List<String> info3_2, List<String> info3_3) {
+    public boolean SendMessage(List<String> rec, List<String> info1, List<String> info2, List<String> info3) {
         String from = "testjava018@gmail.com";
         final String username = "testjava018@gmail.com";
         final String password = "JavaTest123";
@@ -122,10 +122,10 @@ public class JavaMail {
                     }
                 });
 
-        for(int i=0; i<info1_1.size(); i++){
-            mes1=mes1+"<li>"+info1_1.get(i)+", "+info1_2.get(i)+", "+info1_3.get(i)+"</li>";
-            mes2=mes2+"<li>"+info2_1.get(i)+", "+info2_2.get(i)+", "+info2_3.get(i)+"</li>";
-            mes3=mes3+"<li>"+info3_1.get(i)+", "+info3_2.get(i)+", "+info3_3.get(i)+"</li>";
+        for(int i=0; i<info1.size(); i++){
+            mes1=mes1+"<li>"+info1.get(i)+"</li>";
+            mes2=mes2+"<li>"+info2.get(i)+"</li>";
+            mes3=mes3+"<li>"+info3.get(i)+"</li>";
         }
 
         boolean send=false;
