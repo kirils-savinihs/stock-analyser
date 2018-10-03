@@ -193,6 +193,8 @@ public class CompanyStockData implements Comparable<CompanyStockData> {
         double sign;
         try {
             sign = first.compareTo(second);
+            if (sign == 0)
+                sign = 1;
         } catch (NullPointerException e) {
             return 0;
         }
@@ -256,7 +258,6 @@ public class CompanyStockData implements Comparable<CompanyStockData> {
 
 
         double[] compPercentages = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-        double division = 0;
 
         compPercentages[0] = compOneStat(this.PeRatio, other.PeRatio, false);
         compPercentages[1] = compOneStat(this.PriceToBook, other.PriceToBook, false);
