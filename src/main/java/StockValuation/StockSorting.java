@@ -1,11 +1,15 @@
 package StockValuation;
 
-import com.stockAnalyzer.database.CompanyStockData;
-import com.stockAnalyzer.database.DatabaseManager;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+
+import org.springframework.util.SocketUtils;
+
+import com.stockAnalyzer.database.*;
+
+import afu.org.checkerframework.checker.units.qual.s;
+import java.util.List;
 
 public class StockSorting {
 	static final String financials = "Financial Services";
@@ -16,18 +20,18 @@ public class StockSorting {
 
 	enum ratio {
 		PE, PB, PS, PC, DIVYLD, ROE, ROA, PM, LIQ
-    }
+	};
 
-    DatabaseManager database;
-	ArrayList<CompanyStockData> companyList;
+	DatabaseManager database;
+	List<CompanyStockData> companyList;
 
 	public StockSorting() {
-        this.database = new DatabaseManager("");
+		this.database = new DatabaseManager("");
 		this.companyList = database.getAll();
 	}
 
-	public ArrayList<CompanyStockData> sectorSorting(String sectorName) {
-		ArrayList<CompanyStockData> sectorList = new ArrayList<CompanyStockData>();
+	public List<CompanyStockData> sectorSorting(String sectorName) {
+		List<CompanyStockData> sectorList = new ArrayList<CompanyStockData>();
 		for (CompanyStockData item : companyList) {
 			if (item.Sector.equals(sectorName))
 				sectorList.add(item);
@@ -87,26 +91,15 @@ public class StockSorting {
 			return o2.PriceToSales.compareTo(o1.PriceToSales);
 		}
 	};
-	/*
-	 * public static Comparator<CompanyStockData> Liq = new
-	 * Comparator<CompanyStockData>() {
-	 * 
-	 * @Override public int compare(CompanyStockData o1, CompanyStockData o2) {
-	 * return o2.PriceToSales.compareTo(o1.PriceToSales); } };
-	 */
 
-	public ArrayList<CompanyStockData> getBy(ratio Ratio, ArrayList<CompanyStockData> prevList) {
-		ArrayList<CompanyStockData> sectorList = prevList;
-		/*
-		 * if( o1.PeRatio.signum() < 0) { i = comlist.size();
-		 * 
-		 * } if( o2.PeRatio.signum() < 0) o2.PeRatio = null; if((o1.PeRatio != null &&
-		 * o1.PeRatio.signum() > 0) && (o2.PeRatio != null && o2.PeRatio.signum() > 0))
-		 */
-		// switch
+
+	public List<CompanyStockData> getBy(ratio Ratio, List<CompanyStockData> prevList) {
+		List<CompanyStockData> sectorList = prevList;
+	
 
 		switch (Ratio) {
 		case PE:
+			// lambda (1, 2)  pE vieta
 			Collections.sort(sectorList, Pe);
 			break;
 		case PB:
@@ -115,9 +108,6 @@ public class StockSorting {
 		case PS:
 			Collections.sort(sectorList, Ps);
 			break;
-		/*
-		 * case PC: Collections.sort(sectorList, Ps); break;
-		 */
 		case DIVYLD:
 			Collections.sort(sectorList, DivYld);
 			break;
@@ -130,74 +120,65 @@ public class StockSorting {
 		case PM:
 			Collections.sort(sectorList, ProfitMargin);
 			break;
-		/*
-		 * case LIQ: Collections.sort(sectorList, Liq); break;
-		 */
-
-		}
-		for (int i = 0; i < 2; i++) { // change to 5
-			sectorList.remove(sectorList.size() - 1);
 		}
 
-		return sectorList;
+		return sectorList.subList(0, sectorList.size()-1);
 
 	}
 
-	public ArrayList<CompanyStockData> getFinancialServices() {
+	public List<CompanyStockData> getFinancialServices() {
 		return sectorSorting(financials);
 	}
 
-	public ArrayList<CompanyStockData> getUtilities() {
+	public List<CompanyStockData> getUtilities() {
 		return sectorSorting(utilities);
 	}
 
-	public ArrayList<CompanyStockData> getConsumers() {
+	public List<CompanyStockData> getConsumers() {
 		return sectorSorting(consumers);
 	}
 
-	public ArrayList<CompanyStockData> sort(String ratio) {
+	public List<CompanyStockData> sort(String ratio) {
 
 		return companyList;
 
 	}
 
-	public ArrayList<CompanyStockData> finalFinancialSorting() {
-		ArrayList<CompanyStockData> finSector = getFinancialServices();
-		ArrayList<CompanyStockData> sortedPE = getBy(ratio.PE, finSector);
-		ArrayList<CompanyStockData> sortedPB = getBy(ratio.PB, sortedPE);
-		ArrayList<CompanyStockData> sortedPS = getBy(ratio.PS, sortedPB);
-		ArrayList<CompanyStockData> sortedDY = getBy(ratio.DIVYLD, sortedPS);
-		ArrayList<CompanyStockData> sortedRoE = getBy(ratio.ROE, sortedDY);
-		ArrayList<CompanyStockData> sortedRoA = getBy(ratio.ROA, sortedRoE);
-		ArrayList<CompanyStockData> sortedPM = getBy(ratio.PM, sortedRoA);
-		// ArrayList<CompanyStockData> sortedLiq = getBy(ratio.LIQ, sortedPM);
-		return sortedPM;
+	public List<CompanyStockData> finalFinancialSorting() {
+		List<CompanyStockData> finalSort = getFinancialServices();
+		finalSort = getBy(ratio.PE, finalSort);
+		finalSort = getBy(ratio.PB, finalSort);
+		finalSort = getBy(ratio.PS, finalSort);
+		finalSort = getBy(ratio.DIVYLD, finalSort);
+		finalSort = getBy(ratio.ROE, finalSort);
+		finalSort = getBy(ratio.ROA, finalSort);
+		finalSort = getBy(ratio.PM, finalSort);
+		return finalSort;
 	}
 
-	public ArrayList<CompanyStockData> finalUtilitiesSorting() {
-		ArrayList<CompanyStockData> utilSector = getUtilities();
-		ArrayList<CompanyStockData> sortedPE = getBy(ratio.PE, utilSector);
-		ArrayList<CompanyStockData> sortedPB = getBy(ratio.PB, sortedPE);
-		ArrayList<CompanyStockData> sortedPS = getBy(ratio.PS, sortedPB);
-		ArrayList<CompanyStockData> sortedDY = getBy(ratio.DIVYLD, sortedPS);
-		ArrayList<CompanyStockData> sortedRoE = getBy(ratio.ROE, sortedDY);
-		ArrayList<CompanyStockData> sortedRoA = getBy(ratio.ROA, sortedRoE);
-		ArrayList<CompanyStockData> sortedPM = getBy(ratio.PM, sortedRoA);
-		// ArrayList<CompanyStockData> sortedLiq = getBy(ratio.LIQ, sortedPM);
-		return sortedPM;
+	public List<CompanyStockData> finalUtilitiesSorting() {
+		List<CompanyStockData> finalSort = getUtilities();
+		finalSort = getBy(ratio.PE, finalSort);
+		finalSort = getBy(ratio.PB, finalSort);
+		finalSort = getBy(ratio.PS, finalSort);
+		finalSort = getBy(ratio.DIVYLD, finalSort);
+		finalSort = getBy(ratio.ROE, finalSort);
+		finalSort = getBy(ratio.ROA, finalSort);
+		finalSort = getBy(ratio.PM, finalSort);
+		return finalSort;
+	
 	}
 
-	public ArrayList<CompanyStockData> finalConsumersSorting() {
-		ArrayList<CompanyStockData> consumSector = getConsumers();
-		ArrayList<CompanyStockData> sortedPE = getBy(ratio.PE, consumSector);
-		ArrayList<CompanyStockData> sortedPB = getBy(ratio.PB, sortedPE);
-		ArrayList<CompanyStockData> sortedPS = getBy(ratio.PS, sortedPB);
-		ArrayList<CompanyStockData> sortedDY = getBy(ratio.DIVYLD, sortedPS);
-		ArrayList<CompanyStockData> sortedRoE = getBy(ratio.ROE, sortedDY);
-		ArrayList<CompanyStockData> sortedRoA = getBy(ratio.ROA, sortedRoE);
-		ArrayList<CompanyStockData> sortedPM = getBy(ratio.PM, sortedRoA);
-		// ArrayList<CompanyStockData> sortedLiq = getBy(ratio.LIQ, sortedPM);
-		return sortedPM;
+	public List<CompanyStockData> finalConsumersSorting() {
+		List<CompanyStockData> finalSort = getConsumers();
+		finalSort = getBy(ratio.PE, finalSort);
+		finalSort = getBy(ratio.PB, finalSort);
+		finalSort = getBy(ratio.PS, finalSort);
+		finalSort = getBy(ratio.DIVYLD, finalSort);
+		finalSort = getBy(ratio.ROE, finalSort);
+		finalSort = getBy(ratio.ROA, finalSort);
+		finalSort = getBy(ratio.PM, finalSort);
+		return finalSort;
 	}
 
 	public static void main(String[] args) {
@@ -205,8 +186,8 @@ public class StockSorting {
 
 		try { ss.database.resetDatabase();
 		System.out.println("Adding companies to database");
-		ss.database.add("AES", "LNT", "AEE", "AEP", "AWK", "CNP", "CMS", "ED", "D", "DTE", "DUK", "EIX", "ETR", "EVRG",
-				"ES", "EXC", "FE", "NEE", "NI", "NRG", "PCG", "PNW", "PPL", "PEG", 
+		ss.database.add("AES", "LNT", "AEE", "AEP", "AWK", "CNP", "CMS", "ED", "D", "DTE", "DUK", "EIX", "ETR",
+				"ES", "EXC", "NEE", "NI", "NRG", "PCG", "PNW", "PPL", "PEG", "SCG", "SRE", //Utilities
 				"AMG", "AFL", "ALL", "AXP", "AIG", "AMP", "AON", "AJG", "AIZ", "BAC", "BK", "BBT", "BRK.B", "BLK",
 				"BHF", "COF", "CBOE", "SCHW", "CB", // Financials
 				"MO", "ADM", "BF.B", "CPB", "CHD", "CLX", "KO", "CL", "CAG", "STZ", "COST", "CAG", "STZ", "COST",
@@ -216,8 +197,35 @@ public class StockSorting {
 		System.out.println("------------------------------------------------------");
 		System.out.println("Sorting companies by financials:  ");
 		System.out.println(ss.getFinancialServices());
+		System.out.println("------------------------------------------------------");
 		System.out.println("Final financial sorting: ");
-		for (CompanyStockData item : ss.finalFinancialSorting()) {
+		System.out.println(ss.finalFinancialSorting());
+		System.out.println("------------------------------------------------------");
+		System.out.println("Sorting companies by utilities:  ");
+		System.out.println(ss.getUtilities());
+		System.out.println("------------------------------------------------------");
+		System.out.println("Final utilities sorting: ");
+		System.out.println(ss.finalUtilitiesSorting());
+		System.out.println("------------------------------------------------------");
+		System.out.println("Sorting companies by consumers:  ");
+		System.out.println(ss.getConsumers());
+		System.out.println("------------------------------------------------------");
+		System.out.println("Final consumers sorting: ");
+		System.out.println(ss.finalConsumersSorting());
+		
+		
+		/*ArrayList<CompanyStockData> utilSector = ss.getUtilities();
+		ArrayList<CompanyStockData> sortedPE = ss.getBy(ratio.PE, utilSector);
+		ArrayList<CompanyStockData> sortedPB = ss.getBy(ratio.PB, sortedPE);
+		ArrayList<CompanyStockData> sortedPS = ss.getBy(ratio.PS, sortedPB);
+		ArrayList<CompanyStockData> sortedDY = ss.getBy(ratio.DIVYLD, sortedPS);
+		ArrayList<CompanyStockData> sortedRoE = ss.getBy(ratio.ROE, sortedDY);
+		ArrayList<CompanyStockData> sortedRoA = ss.getBy(ratio.ROA, sortedRoE);
+		ArrayList<CompanyStockData> sortedPM = ss.getBy(ratio.PM, sortedRoA);
+		System.out.println(sortedPM);*/
+		
+		//
+		/*for (CompanyStockData item : ss.finalFinancialSorting()) {
 			System.out.println(item.symbol);
 		}
 		System.out.println("--------------------------------------------------");
@@ -227,7 +235,7 @@ public class StockSorting {
 		System.out.println(ss.getFinancialServices());
 		for (CompanyStockData item1 : ss.finalUtilitiesSorting()) {
 			System.out.println(item1.symbol);
-		}
+		}*/
 		}
 		catch (Exception e) {
 			System.err.println(e);}
