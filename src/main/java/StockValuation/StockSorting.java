@@ -1,7 +1,7 @@
 package StockValuation;
 
-import com.stockAnalyzer.database.CompanyStockData;
-import com.stockAnalyzer.database.DatabaseManager;
+import Database.CompanyStockData;
+import Database.DatabaseManager;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -23,7 +23,7 @@ public class StockSorting {
 	List<CompanyStockData> companyList;
 
 	public StockSorting() {
-		this.database = new DatabaseManager("");
+		this.database = new DatabaseManager("00000000");
 		this.companyList = database.getAll();
 	}
 
