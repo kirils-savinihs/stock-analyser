@@ -31,7 +31,7 @@ public class DatabaseManager {
      *
      * @param symbols Company symbol e.g "INTC" for Intel Corporation
      */
-    public int add(String... symbols) { // ... takes any number of Strings
+    public void add(String... symbols) { // ... takes any number of Strings
         for (String symbol : symbols) {
             System.out.print("Adding " + symbol);
 
@@ -107,12 +107,11 @@ public class DatabaseManager {
                 st.executeUpdate(sql);
             } catch (SQLException e) {
                 e.printStackTrace();
-                return -1;
             }
 
         }
 
-        return 0;
+
     }
 
     /**
@@ -247,7 +246,7 @@ public ArrayList<CompanyStockData> getAll() {
         }
 
     } catch (SQLException e) {
-        return data;
+        e.printStackTrace();
     }
     return data;
 

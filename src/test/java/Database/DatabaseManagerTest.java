@@ -31,59 +31,30 @@ class DatabaseManagerTest {
             fail("Exception should not be thrown");
         }
 
-        boolean exception = false;
+
         try {
             db = new DatabaseManager("WRONG");
         } catch (Exception e) {
-            exception = true;
+            assertTrue("Exception should be thrown", true);
         }
-        assertTrue("Exception should be thrown", exception);
+
     }
 
 
     @Test
     void add() {
-        db = new DatabaseManager(password);
-
-        db.resetDatabase();
-        db.add("INTC");
-        assertTrue(db.getAll().size() == 1);
-
 
     }
 
     @Test
     void resetDatabase() {
-        db = new DatabaseManager(password);
-        db.resetDatabase();
-        assertTrue(db.getAll().size() == 0);
-        db.add("INTC");
-        assertTrue(db.getAll().size() == 1);
-        db.resetDatabase();
-        assertTrue(db.getAll().size() == 0);
-
-
-
     }
 
     @Test
     void closeConnection() {
-        db = new DatabaseManager("00000000");
-
-        assertTrue(db.add("INTC") == 0);
-
-        db.closeConnection();
-
-        assertTrue(db.add("INTC") == -1);
-
-
     }
 
     @Test
     void getAll() {
-        db = new DatabaseManager("00000000");
-        db.add("INTC", "INTC");
-        assertTrue(db.getAll().size() == 2);
-
     }
 }
