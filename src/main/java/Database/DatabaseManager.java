@@ -21,6 +21,7 @@ public class DatabaseManager {
             System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n" +
                     "Make sure mysql server is running\n" +
                     "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            closeConnection();
             e.printStackTrace();
         }
     }
@@ -32,8 +33,10 @@ public class DatabaseManager {
      */
     public void add(String... symbols) { // ... takes any number of Strings
         for (String symbol : symbols) {
-            System.out.println("Adding " + symbol);
+            System.out.print("Adding " + symbol);
+
             CompanyStockData data = new CompanyStockData(symbol);
+
             if (
                     data.PeRatio == null ||
                             data.PriceToBook == null ||
@@ -46,6 +49,7 @@ public class DatabaseManager {
                 System.out.println(data.symbol + " was not added, not all data is available from api");
                 continue;
             }
+            System.out.print("(" + data.Sector + ")\n");
 
 
 

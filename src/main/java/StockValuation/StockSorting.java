@@ -180,14 +180,15 @@ public class StockSorting {
 	public static void main(String[] args) {
 		StockSorting ss = new StockSorting();
 
-		try { ss.database.resetDatabase();
+        try {
+            ss.database.resetDatabase();
 		System.out.println("Adding companies to database");
 		ss.database.add("AES", "LNT", "AEE", "AEP", "AWK", "CNP", "CMS", "ED", "D", "DTE", "DUK", "EIX", "ETR",
-				"ES", "EXC", "NEE", "NI", "NRG", "PCG", "PNW", "PPL", "PEG", "SCG", "SRE", //Utilities
+                "ES", "EXC", "NEE", "NI", "NRG", "PCG", //Utilities
 				"AMG", "AFL", "ALL", "AXP", "AIG", "AMP", "AON", "AJG", "AIZ", "BAC", "BK", "BBT", "BRK.B", "BLK",
 				"BHF", "COF", "CBOE", "SCHW", "CB", // Financials
-				"MO", "ADM", "BF.B", "CPB", "CHD", "CLX", "KO", "CL", "CAG", "STZ", "COST", "CAG", "STZ", "COST",
-				"COTY", "EL", "GIS", "HSY", "HRL", "SJM", "GIS", "HSY", "HRL", "SJM" // Consumers
+                "MO", "ADM", "BF.B", "CPB", "CHD", "CLX", "KO", "CL", "CAG", "STZ", "CAG", "STZ", "COST",
+                "COTY", "EL", "GIS", "HSY", "HRL", "GIS" // Consumers
 		);
 		System.out.println(ss.database.getAll());
 		System.out.println("------------------------------------------------------");
@@ -196,18 +197,22 @@ public class StockSorting {
 		System.out.println("------------------------------------------------------");
 		System.out.println("Final financial sorting: ");
 		System.out.println(ss.finalFinancialSorting());
+            System.out.println("\n" + ss.finalFinancialSorting().size() + "\n");
 		System.out.println("------------------------------------------------------");
 		System.out.println("Sorting companies by utilities:  ");
 		System.out.println(ss.getUtilities());
+
 		System.out.println("------------------------------------------------------");
 		System.out.println("Final utilities sorting: ");
 		System.out.println(ss.finalUtilitiesSorting());
+            System.out.println("\n" + ss.finalUtilitiesSorting().size() + "\n");
 		System.out.println("------------------------------------------------------");
 		System.out.println("Sorting companies by consumers:  ");
 		System.out.println(ss.getConsumers());
 		System.out.println("------------------------------------------------------");
 		System.out.println("Final consumers sorting: ");
 		System.out.println(ss.finalConsumersSorting());
+            System.out.println("\n" + ss.finalConsumersSorting().size() + "\n");
 		
 	
 		}

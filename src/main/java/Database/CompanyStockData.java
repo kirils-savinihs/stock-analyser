@@ -332,63 +332,62 @@ public class CompanyStockData implements Comparable<CompanyStockData> {
 
     }
 
-//    Testing code
-//
-//    public static void main(String[] args) {
-//
-//        CompanyStockData testObj1 = new CompanyStockData(
-//                BigDecimal.valueOf(1),//PE <
-//                "Financial Services",
-//                BigDecimal.valueOf(1),//PriceToBook <
-//                BigDecimal.valueOf(1),//PriceToSales <
-//                BigDecimal.valueOf(2),//DividendYield >
-//                BigDecimal.valueOf(2),//ReturnOnEquity >
-//                BigDecimal.valueOf(2),//ReturnOnAssets >
-//                BigDecimal.valueOf(2),//ProfitMargin >
-//                BigDecimal.valueOf(1),//TtmEPS
-//                BigDecimal.valueOf(1),//Debt <
-//                BigDecimal.valueOf(1),//currentAssets
-//                BigDecimal.valueOf(1),//currentDebt
-//                BigDecimal.valueOf(1),//totalDebt
-//                BigDecimal.valueOf(1),//shareHolderEquity
-//                BigDecimal.valueOf(1),//cashFlow
-//                BigDecimal.valueOf(1),//PriceTOCashFlow
-//                BigDecimal.valueOf(1),//DebtToEquity
-//                BigDecimal.valueOf(1),//Liquidity <
-//                BigDecimal.valueOf(1),//LatestPrice
-//                1,"TEST1");
-//
-//        CompanyStockData testObj2 = new CompanyStockData(
-//                BigDecimal.valueOf(2),
-//                "Financial Services",
-//                BigDecimal.valueOf(2),
-//                BigDecimal.valueOf(2),
-//                BigDecimal.valueOf(1),
-//                BigDecimal.valueOf(1),
-//                BigDecimal.valueOf(1),
-//                BigDecimal.valueOf(1),
-//                BigDecimal.valueOf(2),
-//                BigDecimal.valueOf(2),
-//                BigDecimal.valueOf(2),
-//                BigDecimal.valueOf(2),
-//                BigDecimal.valueOf(2),
-//                BigDecimal.valueOf(2),
-//                BigDecimal.valueOf(2),
-//                BigDecimal.valueOf(2),
-//                BigDecimal.valueOf(2),
-//                BigDecimal.valueOf(2),
-//                BigDecimal.valueOf(2),
-//                1,"TEST2");
-//
-//
-//        System.out.println(testObj1.compareTo(testObj2));
-//
-//        System.out.println(testObj2.compareTo(testObj1));
-//
-//        System.out.println(compOneStatExperimental(BigDecimal.valueOf(1),BigDecimal.valueOf(2),true)); //expect -1
-//        System.out.println(compOneStatExperimental(BigDecimal.valueOf(2),BigDecimal.valueOf(1),false));//expect -1
-//        System.out.println(compOneStatExperimental(BigDecimal.valueOf(2),BigDecimal.valueOf(1),true)); //expect 1
-//        System.out.println(compOneStatExperimental(BigDecimal.valueOf(1),BigDecimal.valueOf(2),false));//expect 1
-//
-//    }
+
+    public static void main(String[] args) {
+
+        CompanyStockData testObj1 = new CompanyStockData(
+                BigDecimal.valueOf(1),//PE <
+                "Financial Services",
+                BigDecimal.valueOf(1),//PriceToBook <
+                BigDecimal.valueOf(1),//PriceToSales <
+                BigDecimal.valueOf(2),//DividendYield >
+                BigDecimal.valueOf(2),//ReturnOnEquity >
+                BigDecimal.valueOf(2),//ReturnOnAssets >
+                BigDecimal.valueOf(2),//ProfitMargin >
+                BigDecimal.valueOf(1),//TtmEPS
+                BigDecimal.valueOf(1),//Debt <
+                BigDecimal.valueOf(1),//currentAssets
+                BigDecimal.valueOf(1),//currentDebt
+                BigDecimal.valueOf(1),//totalDebt
+                BigDecimal.valueOf(1),//shareHolderEquity
+                BigDecimal.valueOf(1),//cashFlow
+                BigDecimal.valueOf(1),//PriceTOCashFlow
+                BigDecimal.valueOf(1),//DebtToEquity
+                BigDecimal.valueOf(1),//Liquidity <
+                BigDecimal.valueOf(1),//LatestPrice
+                1, "TEST1", "TestCompany2");
+
+        CompanyStockData testObj2 = new CompanyStockData(
+                BigDecimal.valueOf(2),
+                "Financial Services",
+                BigDecimal.valueOf(2),
+                BigDecimal.valueOf(2),
+                BigDecimal.valueOf(1),
+                BigDecimal.valueOf(1),
+                BigDecimal.valueOf(1),
+                BigDecimal.valueOf(1),
+                BigDecimal.valueOf(2),
+                BigDecimal.valueOf(2),
+                BigDecimal.valueOf(2),
+                BigDecimal.valueOf(2),
+                BigDecimal.valueOf(2),
+                BigDecimal.valueOf(2),
+                BigDecimal.valueOf(2),
+                BigDecimal.valueOf(2),
+                BigDecimal.valueOf(2),
+                BigDecimal.valueOf(2),
+                BigDecimal.valueOf(2),
+                1, "TEST2", "TestCompany2");
+
+
+        System.out.println(testObj1.compareTo(testObj2));
+
+        System.out.println(testObj2.compareTo(testObj1));
+
+        System.out.println(compOneStat(BigDecimal.valueOf(1), BigDecimal.valueOf(2), true)); //expect -1
+        System.out.println(compOneStat(BigDecimal.valueOf(2), BigDecimal.valueOf(1), false));//expect -1
+        System.out.println(compOneStat(BigDecimal.valueOf(2), BigDecimal.valueOf(1), true)); //expect 1
+        System.out.println(compOneStat(BigDecimal.valueOf(1), BigDecimal.valueOf(2), false));//expect 1
+
+    }
 }
