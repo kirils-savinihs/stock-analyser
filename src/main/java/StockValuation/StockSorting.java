@@ -183,20 +183,28 @@ public class StockSorting {
         try {
             ss.database.resetDatabase();
 		System.out.println("Adding companies to database");
-		ss.database.add("AES", "LNT", "AEE", "AEP", "AWK", "CNP", "CMS", "ED", "D", "DTE", "DUK", "EIX", "ETR",
+            ss.database.add(
+                    "AES", "LNT", "AEE", "AEP", "AWK", "CNP", "CMS", "ED", "D", "DTE", "DUK", "EIX", "ETR",
                 "ES", "EXC", "NEE", "NI", "NRG", "PCG", //Utilities
+
 				"AMG", "AFL", "ALL", "AXP", "AIG", "AMP", "AON", "AJG", "AIZ", "BAC", "BK", "BBT", "BRK.B", "BLK",
 				"BHF", "COF", "CBOE", "SCHW", "CB", // Financials
+
                 "MO", "ADM", "BF.B", "CPB", "CHD", "CLX", "KO", "CL", "CAG", "STZ", "CAG", "STZ", "COST",
                 "COTY", "EL", "GIS", "HSY", "HRL", "GIS" // Consumers
 		);
-		System.out.println(ss.database.getAll());
+            //System.out.println(ss.database.getAll());
 		System.out.println("------------------------------------------------------");
 		System.out.println("Sorting companies by financials:  ");
 		System.out.println(ss.getFinancialServices());
 		System.out.println("------------------------------------------------------");
 		System.out.println("Final financial sorting: ");
-		System.out.println(ss.finalFinancialSorting());
+            //System.out.println(ss.finalFinancialSorting());
+            for (CompanyStockData data : ss.finalFinancialSorting()) {
+                System.out.println(data.symbol);
+            }
+
+
             System.out.println("\n" + ss.finalFinancialSorting().size() + "\n");
 		System.out.println("------------------------------------------------------");
 		System.out.println("Sorting companies by utilities:  ");
@@ -205,13 +213,20 @@ public class StockSorting {
 		System.out.println("------------------------------------------------------");
 		System.out.println("Final utilities sorting: ");
 		System.out.println(ss.finalUtilitiesSorting());
+//            System.out.println("\n" + ss.finalUtilitiesSorting().size() + "\n");
+            for (CompanyStockData data : ss.finalUtilitiesSorting()) {
+                System.out.println(data.symbol);
+            }
             System.out.println("\n" + ss.finalUtilitiesSorting().size() + "\n");
 		System.out.println("------------------------------------------------------");
 		System.out.println("Sorting companies by consumers:  ");
 		System.out.println(ss.getConsumers());
 		System.out.println("------------------------------------------------------");
 		System.out.println("Final consumers sorting: ");
-		System.out.println(ss.finalConsumersSorting());
+//		System.out.println(ss.finalConsumersSorting());
+            for (CompanyStockData data : ss.finalConsumersSorting()) {
+                System.out.println(data.symbol);
+            }
             System.out.println("\n" + ss.finalConsumersSorting().size() + "\n");
 		
 	
