@@ -2,6 +2,7 @@ package StockValuation;
 
 import Database.CompanyStockData;
 import Database.DatabaseManager;
+import StockSending.JavaMail;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -23,7 +24,7 @@ public class StockSorting {
 	public List<CompanyStockData> companyList;
 
 	public StockSorting() {
-		this.database = new DatabaseManager("");
+		this.database = new DatabaseManager("abcd1234");
 		this.companyList = database.getAll();
 	}
 
@@ -176,15 +177,15 @@ public class StockSorting {
 		StockSorting ss = new StockSorting();
 
         try {
-            ss.database.resetDatabase();
-		System.out.println("Adding companies to database");
-		ss.database.add("AES", "LNT", "AEE", "AEP", "AWK", "CNP", "CMS", "ED", "D", "DTE", "DUK", "EIX", "ETR",
-                "ES", "EXC", "NEE", "NI", "NRG", "PCG", //Utilities
-				"AMG", "AFL", "ALL", "AXP", "AIG", "AMP", "AON", "AJG", "AIZ", "BAC", "BK", "BBT", "BRK.B", "BLK",
-				"BHF", "COF", "CBOE", "SCHW", "CB", // Financials
-                "MO", "ADM", "BF.B", "CPB", "CHD", "CLX", "KO", "CL", "CAG", "STZ", "CAG", "STZ", "COST",
-                "COTY", "EL", "GIS", "HSY", "HRL", "GIS" // Consumers
-		);
+            //ss.database.resetDatabase();
+		//System.out.println("Adding companies to database");
+		//ss.database.add("AES", "LNT", "AEE", "AEP", "AWK", "CNP", "CMS", "ED", "D", "DTE", "DUK", "EIX", "ETR",
+             //   "ES", "EXC", "NEE", "NI", "NRG", "PCG", //Utilities
+			//	"AMG", "AFL", "ALL", "AXP", "AIG", "AMP", "AON", "AJG", "AIZ", "BAC", "BK", "BBT", "BRK.B", "BLK",
+			//	"BHF", "COF", "CBOE", "SCHW", "CB", // Financials
+             //   "MO", "ADM", "BF.B", "CPB", "CHD", "CLX", "KO", "CL", "CAG", "STZ", "CAG", "STZ", "COST",
+             //   "COTY", "EL", "GIS", "HSY", "HRL", "GIS" // Consumers
+		//);
 		System.out.println(ss.database.getAll());
 		System.out.println("------------------------------------------------------");
 		System.out.println("Sorting companies by financials:  ");
@@ -208,6 +209,8 @@ public class StockSorting {
 		System.out.println("Final consumers sorting: ");
 		System.out.println(ss.finalConsumersSorting());
             System.out.println("\n" + ss.finalConsumersSorting().size() + "\n");
+
+            JavaMail.FrontEnd(ss.finalUtilitiesSorting(), ss.finalFinancialSorting(), ss.finalConsumersSorting());
 
 
 		}
