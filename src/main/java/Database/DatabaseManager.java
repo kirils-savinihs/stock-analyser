@@ -173,46 +173,13 @@ public class DatabaseManager {
         }
     }
 
-//    /**
-//     * Finds stock by id
-//     *
-//     * @param id stock id in database
-//     * @return CompanyStockData object
-//     */
-//    public CompanyStockData findById(int id) {
-//        CompanyStockData companyStockData = null;
-//        try {
-//            Statement st = con.createStatement();
-//            ResultSet rs = st.executeQuery("select * from stock_database.stocks where id=" + id);
-//            rs.next();
-//            companyStockData = new CompanyStockData(id, rs.getString(2));
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//        return companyStockData;
-//    }
 
-//    /**
-//     * Finds stock by symbol example: "INTC" for Intel Corporation
-//     * @param symbol stock symbol
-//     * @return CompanyStockData object or null if sqlexception occurs
-//     */
-//
-//    public CompanyStockData findBySymbol(String symbol) {
-//        CompanyStockData companyStockData = null;
-//        try {
-//            java.sql.Statement st = con.createStatement();
-//            System.out.println("select * from stock_database.stocks where symbol=\""+symbol+"\";");
-//            ResultSet rs = st.executeQuery("select * from stock_database.stocks where symbol=\""+symbol+"\"");
-//            rs.next();
-//            companyStockData = new CompanyStockData(rs.getInt(1), rs.getString(2));
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//        return companyStockData;
-//    }
-//
-public ArrayList<CompanyStockData> getAll() {
+    /**
+     * gets all stock info from the database
+     *
+     * @return Arraylist with CompanyStockData objects
+     */
+    public ArrayList<CompanyStockData> getAll() {
     ArrayList<CompanyStockData> data = new ArrayList<CompanyStockData>();
     try {
         java.sql.Statement st = con.createStatement();

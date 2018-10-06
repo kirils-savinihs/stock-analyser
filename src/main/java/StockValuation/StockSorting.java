@@ -2,7 +2,6 @@ package StockValuation;
 
 import Database.CompanyStockData;
 import Database.DatabaseManager;
-import StockSending.JavaMail;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -16,16 +15,15 @@ public class StockSorting {
 
 	String[] sectors = { financials, utilities, consumers };
 
-	enum ratio {
+	public enum ratio {
 		PE, PB, PS, PC, DIVYLD, ROE, ROA, PM
 	};
 
 	DatabaseManager database;
-	List<CompanyStockData> companyList;
+	public List<CompanyStockData> companyList;
 
 	public StockSorting() {
-		//put my password
-		this.database = new DatabaseManager("abcd1234");
+		this.database = new DatabaseManager("");
 		this.companyList = database.getAll();
 	}
 
@@ -58,36 +56,31 @@ public class StockSorting {
 			return o1.PriceToSales.compareTo(o2.PriceToSales);
 		}
 	};
-	public static Comparator<CompanyStockData> Pc = new Comparator<CompanyStockData>() {
-		@Override
-		public int compare(CompanyStockData o1, CompanyStockData o2) {
-			return o1.PriceToCashFlow.compareTo(o2.PriceToCashFlow);
-		}
-	};
+
 	public static Comparator<CompanyStockData> DivYld = new Comparator<CompanyStockData>() {
 		@Override
 		public int compare(CompanyStockData o1, CompanyStockData o2) {
-			return o2.PriceToSales.compareTo(o1.PriceToSales);
+			return o2.DividendYield.compareTo(o1.DividendYield);
 		}
 	};
 	public static Comparator<CompanyStockData> RoE = new Comparator<CompanyStockData>() {
 		@Override
 		public int compare(CompanyStockData o1, CompanyStockData o2) {
-			return o2.PriceToSales.compareTo(o1.PriceToSales);
+			return o2.ReturnOnEquity.compareTo(o1.ReturnOnEquity);
 		}
 	};
 
 	public static Comparator<CompanyStockData> RoA = new Comparator<CompanyStockData>() {
 		@Override
 		public int compare(CompanyStockData o1, CompanyStockData o2) {
-			return o2.PriceToSales.compareTo(o1.PriceToSales);
+			return o2.ReturnOnAssets.compareTo(o1.ReturnOnAssets);
 		}
 	};
 
 	public static Comparator<CompanyStockData> ProfitMargin = new Comparator<CompanyStockData>() {
 		@Override
 		public int compare(CompanyStockData o1, CompanyStockData o2) {
-			return o2.PriceToSales.compareTo(o1.PriceToSales);
+			return o2.ProfitMargin.compareTo(o1.ProfitMargin);
 		}
 	};
 
@@ -216,8 +209,7 @@ public class StockSorting {
 		System.out.println(ss.finalConsumersSorting());
             System.out.println("\n" + ss.finalConsumersSorting().size() + "\n");
 
-            JavaMail.FrontEnd(ss.finalUtilitiesSorting(), ss.finalFinancialSorting(), ss.finalConsumersSorting());
-	
+
 		}
 		catch (Exception e) {
 			System.err.println(e);}
