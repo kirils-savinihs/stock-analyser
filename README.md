@@ -98,7 +98,7 @@ Insert methods names
 ```
 //Checks that exceptions in code are done properly
 test00Exceptions()
-//Checks if data of recipients is gathered
+//Checks if data of recipients is gathered and can connect to databse
 test01FormSQL()
 Checks if data is sent with correct recipients 
 test02SendMessageTRUE()
