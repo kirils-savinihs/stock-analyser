@@ -1,28 +1,26 @@
 # stock-analyser
 
-This project gathers, calculates and sends information about stocks and then gives it to various clients via their e-mails. 
-The information provided by this service allows clients to decide whether they want to invest or sell stocks. 
-This service is supposed to be a daily information provider to clients that are interested in it.
+This project gathers, sorts and sends information about stocks and then sends it to clients via email. The information provided by this service allows clients to decide whether they want to buy or sell stocks. This service is supposed to be a daily information provider to clients that are interested in it.
 
 ## Getting Started
 
-Clone or download this repository to your device. Open the project in IntelliJ Idea, Eclipse or other java editing program.
+Clone or download this repository to your device. Open the project in IntelliJ Idea, Eclipse or other IDE for Java.
 
 ### Prerequisites
 
-1)Working MySQL database
+1) MySQL Community Server 8.0.12 (MySQL Workbench recommended)
 
-2)MySQL Workbench
+2) Java 8
 
-2.1)Create a database
+3) Create a table with clients in database
 
 ```
 Create database database_activity with a table Clients which has a 
 column named eMail where you have stored Client’s e-mails.
-Then store some e-mails in it.
+Then store some e-mail addresses in it.
 ```
 
-3)Change in StockSorting StockSorting constructor the password value in "abcd1234" according to your MySQL workbench password
+3)Add your mysql root password to the constructor of StockSorting class
 
 ```
 public StockSorting() {
@@ -32,37 +30,60 @@ public StockSorting() {
 	}
 ```
 
-## Project clases
+## Project's classes
 
-This project is split in three parts(back end, the main, front end) and uses 4 classes that are in charge of a certain aspect 
-of the code.
+This project is split into four parts (data gathering, storing, sorting, sending) and uses 4 classes that are in charge of each.
 
 ### CompanyStockData & DatabaseManager
 
-These classes is responsible for backend to get stock data using IEX Trading API  to gather it, store it in a local MySQL database.
+CompanyStockData & DatabaseManager are responsible for getting stock data using IEX Trading API and then storing it in a local MySQL database via JDBC.
 
 ### StockSorting
 
-This class is responsible for the main process of the project to calculate useful information of the raw data and gather it in a
-matter that can be send to clients and send the ready data to the JavaMail class.
+This class is responsible for sorting stocks by PE Ratio, Price to sales ratio etc for JavaMail class
 
 ### JavaMail
 
 This class is responsible for front end to make sure that the calculated information is send to client’s e-mail in a 
 pleasant user interface. To do so this class uses MySQL and Java Mail API and CSS.
 
+This class is responsible for sending the sorted stock info to the clients' e-mail inboxes. This class uses MySQL and Java Mail API and CSS.
+
 
 ## Running the tests
 
-This project uses Junit tests to tests the program for errors.
+This project uses Junit tests to test the program for errors.
 
 ### Break down into end to end tests
 
-* CompanyStockData & DatabaseManage test methods
+* CompanyStockData & DatabaseManager test methods
 
 ```
-They check what
-Insert methods names
+//CompanyStockData.java:
+//Checks constructors for CompanyStockData
+constructors()
+//Checks toString method
+ToStringTest()
+//Checks compareTo method
+comparetTo()
+
+//DatabaseManager.java:
+//resets DatabaseManager obj
+setUp()
+//closes jdbc connection
+tearDown()
+//tests connection to mysql
+connect()
+//tests adding to database
+add()
+//tests reseting the database
+resetDatabase()
+//tests closing the connection
+closeConnection()
+//tests getAll method that gets all info from the database
+getAll()
+
+
 ```
 
 * StockSorting test methods
@@ -140,9 +161,7 @@ This information keeps the date and time of when this program sends emails.
 * **Maven**
 * **JavaMail API**
 * **MySQL**
-* **Spring framework**
 * **IEX Trading API**
-* **Add more if there is**
 
 ## Versioning
 
