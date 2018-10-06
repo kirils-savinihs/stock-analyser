@@ -22,7 +22,7 @@ column named eMail where you have stored Client’s e-mails.
 Then store some e-mails in it.
 ```
 
-3)Change in StockSorting StockSorting constructor the password value in "abcd1234" according to your password
+3)Change in StockSorting StockSorting constructor the password value in "abcd1234" according to your MySQL workbench password
 
 ```
 public StockSorting() {
