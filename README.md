@@ -87,11 +87,17 @@ getAll()
 ```
 
 * StockSorting test methods
-
-```
-They check what
-Insert methods names
-```
+// tests sorting list of stocks by sectors
+testSectorSorting()
+// tests sorting passed list of stocks by passed ratios
+testGetBy()
+// tests if method returns final sorted list of stocks for Financial Services	
+testFinalFinancialSorting()
+// tests if method returns final sorted list of stocks for Utilities
+testFinalUtilitiesSorting()
+// tests if method returns final sorted list of stocks for Consumer Defensive
+testFinalConsumersSorting() 
+	
 
 * JavaMail test methods
 
