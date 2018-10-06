@@ -11,7 +11,9 @@ Clone or download this repository to your device. Open the project in IntelliJ I
 ### Prerequisites
 
 1)Working MySQL database
+
 2)MySQL Workbench
+
 2.1)Create a database
 
 ```
